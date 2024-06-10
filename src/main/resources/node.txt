@@ -1,0 +1,191 @@
+Các bảng dữ liệu và mối quan hệ
+Users (Người dùng)
+Expenses (Chi tiêu)
+ExpenseDetails (Chi tiết chi tiêu)
+Incomes (Khoản thu)
+IncomeDetails (Chi tiết khoản thu)
+Balance (Tổng tiền còn lại hoặc nợ)
+Posts (Bài đăng)
+Comments (Bình luận)
+Follows (Theo dõi)
+Favorites (Yêu thích)
+Admins (Quản trị viên)
+
+Mối quan hệ giữa các bảng:
+Users:
+Users có thể có nhiều Expenses: Quan hệ 1-n
+Users có thể có nhiều Incomes: Quan hệ 1-n
+Users có thể viết nhiều Posts: Quan hệ 1-n
+Users có thể viết nhiều Comments: Quan hệ 1-n
+
+Expenses:
+Expenses thuộc về một User: Quan hệ n-1
+Expenses có thể có nhiều ExpenseDetails: Quan hệ 1-n
+
+ExpenseDetails:
+ExpenseDetails thuộc về một Expense: Quan hệ n-1
+
+Incomes:
+Incomes thuộc về một User: Quan hệ n-1
+Incomes có thể có nhiều IncomeDetails: Quan hệ 1-n
+
+IncomeDetails:
+IncomeDetails thuộc về một Income: Quan hệ n-1
+
+Posts:
+Posts thuộc về một User: Quan hệ n-1
+Posts có thể có nhiều Comments: Quan hệ 1-n
+
+Comments:
+Comments thuộc về một Post: Quan hệ n-1
+Comments thuộc về một User: Quan hệ n-1
+
+Users (Người dùng):
+Users có thể có nhiều lượt Follows (1-n)
+Users có thể có nhiều Favorites (1-n)
+
+Posts (Bài viết):
+Posts có thể có nhiều Favorites (1-n)
+
+Users (Người dùng):
+Users có thể có nhiều lượt Follows (1-n)
+Users có thể có nhiều Favorites (1-n)
+
+Posts (Bài viết):
+Posts có thể có nhiều Favorites (1-n)
+
+Follows (Theo dõi):
+Mỗi bản ghi trong Follows là một mối quan hệ theo dõi giữa hai người dùng:
+follower_id: ID của người theo dõi (Foreign Key đến Users)
+followed_id: ID của người được theo dõi (Foreign Key đến Users)
+
+Favorites (Yêu thích):
+Mỗi bản ghi trong Favorites là một mối quan hệ yêu thích giữa một người dùng và một bài viết:
+user_id: ID của người dùng (Foreign Key đến Users)
+post_id: ID của bài viết được yêu thích (Foreign Key đến Posts)
+
+Follows (Theo dõi):
+Mỗi bản ghi trong Follows là một mối quan hệ theo dõi giữa hai người dùng:
+follower_id: ID của người theo dõi (Foreign Key đến Users)
+followed_id: ID của người được theo dõi (Foreign Key đến Users)
+
+Favorites (Yêu thích):
+Mỗi bản ghi trong Favorites là một mối quan hệ yêu thích giữa một người dùng và một bài viết:
+user_id: ID của người dùng (Foreign Key đến Users)
+post_id: ID của bài viết được yêu thích (Foreign Key đến Posts)
+
+Admins:
+Admins quản lý tất cả các thông tin người dùng và bài đăng, nhưng không có quan hệ trực tiếp trong thiết kế cơ sở dữ liệu này.
+
+Sơ đồ quan hệ CSDL (ERD)
+Bảng Users:
+sql
+Sao chép mã
+CREATE TABLE Users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    full_name VARCHAR(100),
+    balance DECIMAL(10, 2) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+Bảng Expenses:
+sql
+Sao chép mã
+CREATE TABLE Expenses (
+    expense_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+Bảng ExpenseDetails:
+sql
+Sao chép mã
+CREATE TABLE ExpenseDetails (
+    detail_id INT PRIMARY KEY AUTO_INCREMENT,
+    expense_id INT,
+    amount DECIMAL(10, 2) NOT NULL,
+    description TEXT,
+    category VARCHAR(50),
+    FOREIGN KEY (expense_id) REFERENCES Expenses(expense_id)
+);
+Bảng Incomes:
+sql
+Sao chép mã
+CREATE TABLE Incomes (
+    income_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+Bảng IncomeDetails:
+sql
+Sao chép mã
+CREATE TABLE IncomeDetails (
+    detail_id INT PRIMARY KEY AUTO_INCREMENT,
+    income_id INT,
+    amount DECIMAL(10, 2) NOT NULL,
+    source VARCHAR(100),
+    FOREIGN KEY (income_id) REFERENCES Incomes(income_id)
+);
+
+CREATE TABLE Balances (
+    balance_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    balance DECIMAL(10, 2) NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+Bảng Posts:
+sql
+Sao chép mã
+CREATE TABLE Posts (
+    post_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+Bảng Comments:
+sql
+Sao chép mã
+CREATE TABLE Comments (
+    comment_id INT PRIMARY KEY AUTO_INCREMENT,
+    post_id INT,
+    user_id INT,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES Posts(post_id),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+Bảng Admins:
+sql
+Sao chép mã
+CREATE TABLE Admins (
+    admin_id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    full_name VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+Tóm tắt mối quan hệ:
+User - Expenses: 1-n
+User - Incomes: 1-n
+User - Posts: 1-n
+User - Comments: 1-n
+Expenses - ExpenseDetails: 1-n
+Incomes - IncomeDetails: 1-n
+Post - Comments: 1-n
