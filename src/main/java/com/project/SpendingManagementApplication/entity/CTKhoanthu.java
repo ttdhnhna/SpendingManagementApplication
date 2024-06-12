@@ -1,14 +1,25 @@
 package com.project.SpendingManagementApplication.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
+@Entity
+@Table(name = "tblIncomeDetail")
 public class CTKhoanthu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idctthu;
+
+    @OneToOne(mappedBy = "idctthu")
+    @JsonManagedReference
     private Long idkhoanthu;
+    
     private float tongthu;
     private String theloai;
 

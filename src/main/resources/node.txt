@@ -51,9 +51,6 @@ Users (Người dùng):
 Users có thể có nhiều lượt Follows (1-n)
 Users có thể có nhiều Favorites (1-n)
 
-Posts (Bài viết):
-Posts có thể có nhiều Favorites (1-n)
-
 Follows (Theo dõi):
 Mỗi bản ghi trong Follows là một mối quan hệ theo dõi giữa hai người dùng:
 follower_id: ID của người theo dõi (Foreign Key đến Users)

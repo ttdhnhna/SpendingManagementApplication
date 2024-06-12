@@ -1,15 +1,40 @@
 package com.project.SpendingManagementApplication.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "tblUser")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long iduser;
+
+    @OneToMany(mappedBy = "idkhoanchi", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Khoanchi> idkhoanchi;
+
+    @OneToMany(mappedBy = "idkhoanthu", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Khoanthu> idkhoanthu;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idtongtien", referencedColumnName = "idtongtien")
+    @JsonBackReference
+    private Tongtien idtongtien;
+
     private String hoten;
     private String email;
     private String password;
@@ -49,4 +74,29 @@ public class User {
         this.password = password;
     }
 
+    public List<Khoanchi> getIdkhoanchi() {
+        return idkhoanchi;
+    }
+
+    public void setIdkhoanchi(List<Khoanchi> idkhoanchi) {
+        this.idkhoanchi = idkhoanchi;
+    }
+
+    public List<Khoanthu> getIdkhoanthu() {
+        return idkhoanthu;
+    }
+
+    public void setIdkhoanthu(List<Khoanthu> idkhoanthu) {
+        this.idkhoanthu = idkhoanthu;
+    }
+
+    public Tongtien getIdtongtien() {
+        return idtongtien;
+    }
+
+    public void setIdtongtien(Tongtien idtongtien) {
+        this.idtongtien = idtongtien;
+    }
+
+    
 }
