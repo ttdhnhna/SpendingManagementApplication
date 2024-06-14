@@ -91,4 +91,22 @@ Expenses - ExpenseDetails: 1-n
 Incomes - IncomeDetails: 1-n
 Post - Comments: 1-n
 
-Bo sung them phan anh cho nhan vien
+Test trên postman phần khoản chi:
+Lấy danh sách tất cả Khoanchi:
+Phương thức: GET
+URL: http://localhost:8080/cackhoanchi
+
+Lấy một Khoanchi theo ID
+Phương thức: GET
+URL: http://localhost:8080/timkhoanchi/{1}
+
+Phương thức: POST
+URL: http://localhost:8080/api/khoanchi
+Body: Chọn raw, định dạng JSON, và nhập dữ liệu của khoản chi mới. Ví dụ:
+{
+    "tongchi": 500000
+}
+
+Xóa một Khoanchi theo ID
+Phương thức: DELETE
+URL: http://localhost:8080/api/xoakhoanchi/{1}

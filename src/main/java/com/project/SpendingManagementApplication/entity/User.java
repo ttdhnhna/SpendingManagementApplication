@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -38,6 +39,13 @@ public class User {
     private String hoten;
     private String email;
     private String password;
+
+    private String ngaysinh;
+    private String quequan;
+    private String gt;
+    private String sdt;
+    @Lob
+    private String anh;
 
     public User() {
     }
@@ -96,6 +104,46 @@ public class User {
 
     public void setIdtongtien(Tongtien idtongtien) {
         this.idtongtien = idtongtien;
+    }
+
+    public String getNgaysinh() {
+        return ngaysinh;
+    }
+
+    public void setNgaysinh(String ngaysinh) {
+        this.ngaysinh = ngaysinh;
+    }
+
+    public String getQuequan() {
+        return quequan;
+    }
+
+    public void setQuequan(String quequan) {
+        this.quequan = quequan;
+    }
+
+    public String getGt() {
+        return gt;
+    }
+
+    public void setGt(String gt) {
+        this.gt = gt;
+    }
+
+    public String getSdt() {
+        return sdt;
+    }
+
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
+    }
+
+    public String getAnh() {
+        return anh;
+    }
+
+    public void setAnh(String anh) {
+        this.anh = anh;
     }
 
     
