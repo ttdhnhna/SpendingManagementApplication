@@ -18,7 +18,7 @@ public class CTKhoanchi {
 
     @OneToOne(mappedBy = "idctchi")
     @JsonManagedReference
-    private Long idkhoanchi;
+    private CTKhoanchi idkhoanchi;
     
     private float tongchi;
     private String ghichu;
@@ -33,14 +33,6 @@ public class CTKhoanchi {
 
     public void setIdctchi(Long idctchi) {
         this.idctchi = idctchi;
-    }
-
-    public Long getIdkhoanchi() {
-        return idkhoanchi;
-    }
-
-    public void setIdkhoanchi(Long idkhoanchi) {
-        this.idkhoanchi = idkhoanchi;
     }
 
     public float getTongchi() {
@@ -65,5 +57,13 @@ public class CTKhoanchi {
 
     public void setTheloai(String theloai) {
         this.theloai = theloai;
+    }
+
+    public CTKhoanchi getIdkhoanchi() {
+        return idkhoanchi;
+    }
+
+    public void setIdkhoanchi(CTKhoanchi idkhoanchi) {
+        this.idkhoanchi = idkhoanchi;
     }
 }
