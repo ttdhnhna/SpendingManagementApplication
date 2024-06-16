@@ -2,13 +2,13 @@ package com.project.SpendingManagementApplication.entity;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+// import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+// import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -22,9 +22,9 @@ public class Tongtien {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idtongtien;
 
-    @OneToOne(mappedBy = "idtongtien")
-    @JsonManagedReference
-    private User iduser;
+    // @OneToOne(mappedBy = "idtongtien")
+    // @JsonManagedReference
+    // private User iduser;
 
     private float tongtien;
     private float no;
@@ -46,12 +46,12 @@ public class Tongtien {
     public void setIdtongtien(Long idtongtien) {
         this.idtongtien = idtongtien;
     }
-    public User getIduser() {
-        return iduser;
-    }
-    public void setIduser(User iduser) {
-        this.iduser = iduser;
-    }
+    // public User getIduser() {
+    //     return iduser;
+    // }
+    // public void setIduser(User iduser) {
+    //     this.iduser = iduser;
+    // }
     public float getTongtien() {
         return tongtien;
     }
