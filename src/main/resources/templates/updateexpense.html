@@ -64,22 +64,23 @@
                     <!-- Phan action tren day chinh la cho se quyet dinh trang web se lam gi sau khi an
                     nut gui -->
                     <div class="form-group">
-                        <div class="form-group">
-                            <input
-                                type="hidden"
-                                th:field="*{idkhoanchi}"
-                                class="form-control"
-                            />
-                        </div>
-                        <label>Số tiền giao dịch</label>
                         <input
-                                type="text"
-                                name="tongchi"
-                                th:field="*{tongchi}"
-                                class="form-control"
-                                placeholder="Nhập số tiền giao dịch"
+                            type="hidden"
+                            th:field="*{idkhoanchi}"
+                            class="form-control"
                         />
                     </div>
+                    <div class="form-group">
+                        <label>Số tiền giao dịch</label>
+                        <input
+                            type="text"
+                            name="tongchi"
+                            th:field="*{tongchi}"
+                            class="form-control"
+                            placeholder="Nhập số tiền giao dịch"
+                        />
+                    </div>
+
                     <!--                        <div class="form-group">-->
                     <!--                            <label>Hệ số lương</label>-->
                     <!--                            <input-->
