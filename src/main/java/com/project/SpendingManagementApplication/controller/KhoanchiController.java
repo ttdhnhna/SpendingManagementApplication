@@ -16,7 +16,7 @@ public class KhoanchiController {
     KhoanchiService service;
 
     @GetMapping("/expenses")
-    public String getKhoanchi(Model model){
+    public String getExpenses(Model model){
         List<Khoanchi> ListKhoanchi = service.getKhoanchi();
         model.addAttribute("ListKhoanchi", ListKhoanchi);
         return "expenses";
@@ -27,22 +27,23 @@ public class KhoanchiController {
         service.saveKhoanchi(khoanchi);
         return "redirect:/expenses";
     }
+
     @GetMapping("/addExpense")
-    public String saveKhoanchi(Model model){
+    public String addExpense(Model model){
         Khoanchi khoanchi = new Khoanchi();
         model.addAttribute("khoanchi", khoanchi);
         return "newexpense";
     }
 
     @GetMapping("/updateExpense/{id}")
-    public String capnhatKhoanchi(@PathVariable(value = "id") long id, Model model) {
+    public String updateExpense(@PathVariable(value = "id") long id, Model model) {
         Khoanchi khoanchi = service.getKhoanchibyID(id);
         model.addAttribute("khoanchi", khoanchi);
         return "updateexpense";
     }
 
     @GetMapping("/deleteExpense/{id}")
-    public String deleteKhoanchiById(@PathVariable(value = "id") long id) {
+    public String deleteExpenseById(@PathVariable(value = "id") long id) {
         this.service.deleteKhoanchibyID(id);
         return "redirect:/expenses";
     }

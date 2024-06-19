@@ -57,7 +57,7 @@
     <div class="container">
         <div class="row">
             &nbsp; &nbsp;
-            <h2>Tổng chi trong tháng</h2>
+            <h2>Tổng thu trong tháng</h2>
         </div>
         <div class="row">
             &nbsp; &nbsp;
@@ -66,7 +66,7 @@
         </div>
         <div class="row">
             <div class="col-lg-3">
-                <a th:href="@{/addExpense}" class="btn btn-primary btn-sm mb-3">
+                <a th:href="@{/addIncome}" class="btn btn-primary btn-sm mb-3">
                     Thêm giao dịch
                 </a>
             </div>
@@ -85,14 +85,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each = "expense : ${ListKhoanchi}">
-                <td th:text="${expense.idkhoanchi}"></td>
-                <td th:text="${expense.tongchi}" name="current"></td>
-                <td th:text="${expense.ngaychi}"></td>
+            <tr th:each = "income : ${ListKhoanthu}">
+                <td th:text="${income.idkhoanthu}"></td>
+                <td th:text="${income.tongthu}" name="current"></td>
+                <td th:text="${income.ngaythu}"></td>
                 <td>
-                    <a th:href="@{/updateExpense/{id}(id=${expense.idkhoanchi})}" class="btn btn-primary">Sửa</a>
+                    <a th:href="@{/updateIncome/{id}(id=${income.idkhoanthu})}" class="btn btn-primary">Sửa</a>
                     <a class="btn btn-primary">Chi tiết</a>
-                    <a th:href="@{/deleteExpense/{id}(id=${expense.idkhoanchi})}" class="btn btn-danger">Xóa</a>
+                    <a th:href="@{/deleteIncome/{id}(id=${income.idkhoanthu})}" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
             </tbody>
