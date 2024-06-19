@@ -3,39 +3,47 @@ package com.project.SpendingManagementApplication.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.project.SpendingManagementApplication.entity.Khoanchi;
 import com.project.SpendingManagementApplication.service.KhoanchiService;
 
+@Controller
 public class KhoanchiController {
     @Autowired
     KhoanchiService service;
 
-    @GetMapping("/cackhoanchi")
-    public List<Khoanchi> getKhoanchi(Model model){
-        // List<Khoanchi> ListKhoanchi = service.getKhoanchi();
-        // model.addAttribute("ListKhoanchi", ListKhoanchi);
-        // return "homepage";
-        return service.getKhoanchi();
+    @GetMapping("/expenses")
+    public String getKhoanchi(Model model){
+        List<Khoanchi> ListKhoanchi = service.getKhoanchi();
+        model.addAttribute("ListKhoanchi", ListKhoanchi);
+        return "expenses";
     }
 
-    @PostMapping("/themkhoanchi")
-    public void saveKhoanchi(Khoanchi khoanchi){
+    @PostMapping("/saveExpense")
+    public String saveExpense(@ModelAttribute("khoanchi") Khoanchi khoanchi){
         service.saveKhoanchi(khoanchi);
+        return "redirect:/expenses";
+    }
+    @GetMapping("/addExpense")
+    public String saveKhoanchi(Model model){
+        Khoanchi khoanchi = new Khoanchi();
+        model.addAttribute("khoanchi", khoanchi);
+        return "newexpense";
     }
 
-    @GetMapping("/timkhoanchi/{id}")
-    public Khoanchi getKhoanchiById(@PathVariable long id) {
-        return service.getKhoanchibyID(id);
+    @GetMapping("/updateExpense/{id}")
+    public String capnhatKhoanchi(@PathVariable(value = "id") long id, Model model) {
+        Khoanchi khoanchi = service.getKhoanchibyID(id);
+        model.addAttribute("khoanchi", khoanchi);
+        return "updateexpense";
     }
 
-    @DeleteMapping("/xoakhoanchi/{id}")
-    public void deleteKhoanchiById(@PathVariable long id) {
-        service.deleteKhoanchibyID(id);
+    @GetMapping("/deleteExpense/{id}")
+    public String deleteKhoanchiById(@PathVariable(value = "id") long id) {
+        this.service.deleteKhoanchibyID(id);
+        return "redirect:/expenses";
     }
 }

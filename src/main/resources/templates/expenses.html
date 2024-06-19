@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- Header -->
+    <!-- Header -->
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
         <!-- Brand -->
         <!--    Logo    -->
@@ -57,16 +57,16 @@
     <div class="container">
         <div class="row">
             &nbsp; &nbsp;
-            <h2>Tổng tiền trong ví</h2>
+            <h2>Tổng chi trong tháng</h2>
         </div>
         <div class="row">
             &nbsp; &nbsp;
             <!--th:text="${'₫' + #numbers.formatDecimal(Tongtien.tongtien, 1, 'COMMA', 2, 'POINT')}">-->
-            <h4 name="current">15000000</h4>
+            <h4 name="current">1000000</h4>
         </div>
         <div class="row">
             <div class="col-lg-3">
-                <a class="btn btn-primary btn-sm mb-3">
+                <a th:href="@{/addExpense}" class="btn btn-primary btn-sm mb-3">
                     Thêm giao dịch
                 </a>
             </div>
@@ -81,52 +81,51 @@
                 <th>ID</th>
                 <th>Giá trị giao dịch</th>
                 <th>Ngày giao dịch </th>
-                <th>Thể loại </th>
                 <th>Chức năng</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr th:each = "expense : ${ListKhoanchi}">
+                <td th:text="${expense.idkhoanchi}"></td>
+                <td th:text="${expense.tongchi}" name="current"></td>
+                <td th:text="${expense.ngaychi}"></td>
                 <td>
-                    <a class="btn btn-primary">Sửa</a>
+                    <a th:href="@{/updateExpense/{id}(id=${expense.idkhoanchi})}" class="btn btn-primary">Sửa</a>
                     <a class="btn btn-primary">Chi tiết</a>
-                    <a class="btn btn-danger">Xóa</a>
+                    <a th:href="@{/deleteExpense/{id}(id=${expense.idkhoanchi})}" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
             </tbody>
         </table>
 
-<!--        <div th:if="${totalPages>1}">-->
-<!--            <div class="row coL-sm-10">-->
-<!--                <div class="coL-sm-2">-->
-<!--                    &nbsp; &nbsp;-->
-<!--                    Tổng hàng: [[${totalItems}]]-->
-<!--                    &nbsp; &nbsp;-->
-<!--                </div>-->
-<!--                <div class="coL-sm-1">-->
-<!--                  <span th:each="i: ${#numbers.sequence(1, totalPages)}">-->
-<!--                    <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>-->
-<!--                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;-->
-<!--                  </span>-->
-<!--                </div>-->
+        <!--        <div th:if="${totalPages>1}">-->
+        <!--            <div class="row coL-sm-10">-->
+        <!--                <div class="coL-sm-2">-->
+        <!--                    &nbsp; &nbsp;-->
+        <!--                    Tổng hàng: [[${totalItems}]]-->
+        <!--                    &nbsp; &nbsp;-->
+        <!--                </div>-->
+        <!--                <div class="coL-sm-1">-->
+        <!--                  <span th:each="i: ${#numbers.sequence(1, totalPages)}">-->
+        <!--                    <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>-->
+        <!--                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;-->
+        <!--                  </span>-->
+        <!--                </div>-->
 
-<!--                <div class="coL-sm-1">-->
-<!--                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Tiếp</a>-->
-<!--                    <span th:unless="${currentPage < totalPages}">Tiếp</span>-->
-<!--                    &nbsp;-->
-<!--                </div>-->
+        <!--                <div class="coL-sm-1">-->
+        <!--                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Tiếp</a>-->
+        <!--                    <span th:unless="${currentPage < totalPages}">Tiếp</span>-->
+        <!--                    &nbsp;-->
+        <!--                </div>-->
 
-<!--                <div class="coL-sm-1">-->
-<!--                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Cuối</a>-->
-<!--                    <span th:unless="${currentPage < totalPages}">Cuối</span>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
+        <!--                <div class="coL-sm-1">-->
+        <!--                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Cuối</a>-->
+        <!--                    <span th:unless="${currentPage < totalPages}">Cuối</span>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </div>
+
     <!--  Footer  -->
     <footer class="bg-light text-center text-lg-start">
         <div class="footer-content text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
