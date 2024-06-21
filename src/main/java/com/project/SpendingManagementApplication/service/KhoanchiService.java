@@ -28,7 +28,7 @@ public class KhoanchiService {
         if(optional.isPresent()){
             khoanchi=optional.get();
         }else{
-            throw new RuntimeException("Không tìm thấy ID khoan chi: "+id);
+            throw new RuntimeException("Không tìm thấy ID khoản chi: "+id);
         }
         return khoanchi;
     }

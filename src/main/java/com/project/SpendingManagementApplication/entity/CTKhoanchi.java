@@ -1,12 +1,12 @@
 package com.project.SpendingManagementApplication.entity;
 
-// import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-// import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,9 +16,9 @@ public class CTKhoanchi {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idctchi;
 
-    // @OneToOne(mappedBy = "idctchi")
-    // @JsonManagedReference
-    // private CTKhoanchi idkhoanchi;
+     @OneToOne(mappedBy = "idctchi")
+     @JsonManagedReference
+     private Khoanchi idkhoanchi;
     
     private float tongchi;
     private String ghichu;
@@ -59,11 +59,11 @@ public class CTKhoanchi {
         this.theloai = theloai;
     }
 
-    // public CTKhoanchi getIdkhoanchi() {
-    //     return idkhoanchi;
-    // }
+    public Khoanchi getIdkhoanchi() {
+        return idkhoanchi;
+    }
 
-    // public void setIdkhoanchi(CTKhoanchi idkhoanchi) {
-    //     this.idkhoanchi = idkhoanchi;
-    // }
+    public void setIdkhoanchi(Khoanchi idkhoanchi) {
+        this.idkhoanchi = idkhoanchi;
+    }
 }

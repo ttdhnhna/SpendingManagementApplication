@@ -23,7 +23,8 @@ public class KhoanchiController {
     }
 
     @PostMapping("/saveExpense")
-    public String saveExpense(@ModelAttribute("khoanchi") Khoanchi khoanchi){
+    public String saveExpense(@ModelAttribute("khoanchi") Khoanchi khoanchi,
+                              @RequestParam("ghichu") String ghichu){
         service.saveKhoanchi(khoanchi);
         return "redirect:/expenses";
     }
