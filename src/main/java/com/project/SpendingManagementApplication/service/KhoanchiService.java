@@ -13,6 +13,8 @@ import com.project.SpendingManagementApplication.repository.KhoanchiRepository;
 public class KhoanchiService {
     @Autowired
     KhoanchiRepository repository;
+    @Autowired
+    CTKhoanchiService ctservice;
 
     public List<Khoanchi> getKhoanchi(){
         return repository.findAll();
