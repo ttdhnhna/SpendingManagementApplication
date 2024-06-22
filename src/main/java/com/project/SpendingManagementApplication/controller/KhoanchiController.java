@@ -24,10 +24,19 @@ public class KhoanchiController {
 
     @PostMapping("/saveExpense")
     public String saveExpense(@ModelAttribute("khoanchi") Khoanchi khoanchi,
-                              @RequestParam("ghichu") String ghichu){
-        service.saveKhoanchi(khoanchi);
+                              @RequestParam("ghichu") String ghichu,
+                              @RequestParam("theloai") String theloai){
+        service.saveKhoanchi(khoanchi, ghichu, theloai);
         return "redirect:/expenses";
     }
+
+    @PostMapping("/udpateExpense")
+    public String updateExpense(@ModelAttribute("khoanchi") Khoanchi khoanchi,
+                              @RequestParam("ghichu") String ghichu,
+                              @RequestParam("theloai") String theloai){
+        service.updateKhoanchi(khoanchi, ghichu, theloai);
+        return "redirect:/expenses";
+    } 
 
     @GetMapping("/addExpense")
     public String addExpense(Model model){

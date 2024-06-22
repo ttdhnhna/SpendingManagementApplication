@@ -10,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 // import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -33,7 +32,6 @@ public class Tongtien {
     private Date ngaycapnhat;
 
     @PrePersist
-    @PreUpdate
     public void onUpdate(){
         this.ngaycapnhat = new Date();
     } 
