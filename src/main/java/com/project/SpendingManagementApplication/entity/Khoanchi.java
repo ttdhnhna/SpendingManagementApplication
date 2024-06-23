@@ -12,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 // import jakarta.persistence.ManyToOne;
  import jakarta.persistence.OneToOne;
-import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -38,11 +37,6 @@ public class Khoanchi {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date ngaychi;
-
-    @PrePersist
-    public void onUpdate(){
-        this.ngaychi = new Date();
-    }
 
     public Khoanchi() {
     }

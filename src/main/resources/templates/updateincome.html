@@ -60,16 +60,9 @@
                 <br>
                 <h1 class="text-center">Cập nhật khoản thu</h1>
                 <div class="card-body">
-                    <form action="#" th:action="@{/saveIncome}" th:object="${khoanthu}" method="post">
+                    <form action="#" th:action="@{/updateIncome}" th:object="${khoanthu}" method="post">
                         <!-- Phan action tren day chinh la cho se quyet dinh trang web se lam gi sau khi an
                         nut gui -->
-                        <div class="form-group">
-                            <input
-                                type="hidden"
-                                th:field="*{idkhoanthu}"
-                                class="form-control"
-                            />
-                        </div>
                         <div class="form-group">
                             <label>Số tiền giao dịch</label>
                             <input
@@ -80,46 +73,39 @@
                                     placeholder="Nhập số tiền giao dịch"
                             />
                         </div>
-<!--                        <div class="form-group">-->
-<!--                            <label>Hệ số lương</label>-->
-<!--                            <input-->
-<!--                                    type="text"-->
-<!--                                    name="hsl"-->
-<!--                                    th:field="*{hsl}"-->
-<!--                                    class="form-control"-->
-<!--                                    placeholder="Nhập hệ số lương của nhân viên"-->
-<!--                            />-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <label>Phụ cấp</label>-->
-<!--                            <input-->
-<!--                                    type="text"-->
-<!--                                    name="phucap"-->
-<!--                                    th:field="*{phucap}"-->
-<!--                                    class="form-control"-->
-<!--                                    placeholder="Nhập phụ cấp của nhân viên"-->
-<!--                            />-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <label>Bảo hiểm</label>-->
-<!--                            <input-->
-<!--                                    type="text"-->
-<!--                                    name="baohiem"-->
-<!--                                    th:field="*{baohiem}"-->
-<!--                                    class="form-control"-->
-<!--                                    placeholder="Nhập số tiền bảo hiểm của nhân viên"-->
-<!--                            />-->
-<!--                        </div>-->
-<!--                        <div class="form-group">-->
-<!--                            <label>Trừ lương</label>-->
-<!--                            <input-->
-<!--                                    type="text"-->
-<!--                                    name="truluong"-->
-<!--                                    th:field="*{truluong}"-->
-<!--                                    class="form-control"-->
-<!--                                    placeholder="Nhập số tiền bị trừ của nhân viên"-->
-<!--                            />-->
-<!--                        </div>-->
+                        <div class="form-group">
+                            <label>Ngày giao dịch</label>
+                            <input
+                                type="date"
+                                name="ngaythu"
+                                th:field="*{ngaythu}"
+                                class="form-control"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label>Thể loại</label>
+                            <select
+                                name="theloai"
+                                th:field="${ctkhoanthu.theloai}"
+                                class="form-control"
+                            >
+                                <option value="" disabled selected>Chọn thể loại</option>
+                                <option value="salary">Lương</option>
+                                <option value="investment">Đầu tư</option>
+                                <option value="give">Được tặng</option>
+                                <option value="other">Khác</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ghi chú</label>
+                            <textarea
+                                name="ghichu"
+                                th:field="${ctkhoanthu.ghichu}"
+                                class="form-control"
+                                placeholder="Nhập ghi chú"
+                                rows="4"
+                            ></textarea>
+                        </div>
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary">
                                 Tạo

@@ -7,13 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.project.SpendingManagementApplication.entity.CTKhoanthu;
 import com.project.SpendingManagementApplication.entity.Khoanthu;
+import com.project.SpendingManagementApplication.service.CTKhoanthuService;
 import com.project.SpendingManagementApplication.service.KhoanthuService;
 
 @Controller
 public class KhoanthuController {
     @Autowired
     KhoanthuService service;
+    @Autowired
+    CTKhoanthuService ctservice;
 
     @GetMapping("/incomes")
     public String getIncomes(Model model){
@@ -23,8 +27,17 @@ public class KhoanthuController {
     }
 
     @PostMapping("/saveIncome")
-    public String saveIncome(@ModelAttribute("khoanthu") Khoanthu khoanthu){
-        service.saveKhoanthu(khoanthu);
+    public String saveIncome(@ModelAttribute("khoanthu") Khoanthu khoanthu,
+                             @RequestParam("ghichu") String ghichu,
+                             @RequestParam("theloai") String theloai){
+        service.saveKhoanthu(khoanthu, ghichu, theloai);
+        return "redirect:/incomes";
+    }
+
+    @PostMapping("/updateIncome")
+    public String jupdateIncome(@ModelAttribute("khoanthu") Khoanthu khoanthu,
+                             @ModelAttribute("ctkhoanthu") CTKhoanthu ct){
+        service.updateKhoanthu(khoanthu, ct);
         return "redirect:/incomes";
     }
 
@@ -39,6 +52,8 @@ public class KhoanthuController {
     public String updateIncome(@PathVariable(value = "id") long id, Model model){
         Khoanthu khoanthu = service.getKhoanthubyID(id);
         model.addAttribute("khoanthu", khoanthu);
+        CTKhoanthu ctKhoanthu = ctservice.getCTKhoanthubyID(khoanthu.getIdctthu().getIdctthu());
+        model.addAttribute("ctkhoanthu", ctKhoanthu);
         return "updateincome";
     }
 

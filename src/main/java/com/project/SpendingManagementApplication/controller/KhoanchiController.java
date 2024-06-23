@@ -7,13 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.project.SpendingManagementApplication.entity.CTKhoanchi;
 import com.project.SpendingManagementApplication.entity.Khoanchi;
+import com.project.SpendingManagementApplication.service.CTKhoanchiService;
 import com.project.SpendingManagementApplication.service.KhoanchiService;
 
 @Controller
 public class KhoanchiController {
     @Autowired
     KhoanchiService service;
+    @Autowired
+    CTKhoanchiService ctservice;
 
     @GetMapping("/expenses")
     public String getExpenses(Model model){
@@ -32,9 +36,8 @@ public class KhoanchiController {
 
     @PostMapping("/udpateExpense")
     public String updateExpense(@ModelAttribute("khoanchi") Khoanchi khoanchi,
-                              @RequestParam("ghichu") String ghichu,
-                              @RequestParam("theloai") String theloai){
-        service.updateKhoanchi(khoanchi, ghichu, theloai);
+                              @ModelAttribute("ctkhoanchi") CTKhoanchi ct){
+        service.updateKhoanchi(khoanchi, ct);
         return "redirect:/expenses";
     } 
 
@@ -49,6 +52,8 @@ public class KhoanchiController {
     public String updateExpense(@PathVariable(value = "id") long id, Model model) {
         Khoanchi khoanchi = service.getKhoanchibyID(id);
         model.addAttribute("khoanchi", khoanchi);
+        CTKhoanchi ctKhoanchi = ctservice.getCTKhoanchibyID(khoanchi.getIdctchi().getIdctchi());
+        model.addAttribute("ctkhoanchi", ctKhoanchi);
         return "updateexpense";
     }
 

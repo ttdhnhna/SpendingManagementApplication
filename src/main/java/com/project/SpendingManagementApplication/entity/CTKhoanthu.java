@@ -22,6 +22,7 @@ public class CTKhoanthu {
     
     private float tongthu;
     private String theloai;
+    private String ghichu;
 
     public CTKhoanthu() {
     }
@@ -57,4 +58,14 @@ public class CTKhoanthu {
     public void setIdkhoanthu(Khoanthu idkhoanthu) {
         this.idkhoanthu = idkhoanthu;
     }
+
+    public String getGhichu() {
+        return ghichu;
+    }
+
+    public void setGhichu(String ghichu) {
+        this.ghichu = ghichu;
+    }
+
+    
 }

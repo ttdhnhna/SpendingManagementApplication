@@ -6,19 +6,42 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.SpendingManagementApplication.entity.CTKhoanthu;
 import com.project.SpendingManagementApplication.entity.Khoanthu;
+import com.project.SpendingManagementApplication.repository.CTKhoanthuRepository;
 import com.project.SpendingManagementApplication.repository.KhoanthuRepository;
 
 @Service
 public class KhoanthuService {
     @Autowired
     KhoanthuRepository repository;
+    @Autowired
+    CTKhoanthuRepository ctrepository;
 
     public List<Khoanthu> getKhoanthu(){
         return this.repository.findAll();
     }
 
-    public void saveKhoanthu(Khoanthu khoanthu){
+    public void saveKhoanthu(Khoanthu khoanthu, String ghichu, String theloai){
+        CTKhoanthu ct = new CTKhoanthu();
+        ct.setGhichu(ghichu);
+        ct.setTheloai(theloai);
+        ct.setIdkhoanthu(khoanthu);
+        ct.setTongthu(khoanthu.getTongthu());
+        ctrepository.save(ct);
+        khoanthu.setIdctthu(ct);
+        this.repository.save(khoanthu);
+    }
+
+    public void updateKhoanthu(Khoanthu khoanthu, CTKhoanthu ct){
+        if(khoanthu.getIdctthu()==null){
+            throw new RuntimeException("Khoản thu đang không có chi tiết");
+        }
+        if(ct==null){
+            throw new RuntimeException("Không tìm thấy id của chi tiết khoản thu: " + khoanthu.getIdctthu().getIdctthu());
+        }
+        ct.setTongthu(khoanthu.getTongthu());
+        ctrepository.save(ct);
         this.repository.save(khoanthu);
     }
 
