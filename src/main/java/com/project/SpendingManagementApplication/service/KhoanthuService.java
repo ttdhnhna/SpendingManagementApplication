@@ -26,11 +26,15 @@ public class KhoanthuService {
         CTKhoanthu ct = new CTKhoanthu();
         ct.setGhichu(ghichu);
         ct.setTheloai(theloai);
-        ct.setIdkhoanthu(khoanthu);
         ct.setTongthu(khoanthu.getTongthu());
-        ctrepository.save(ct);
-        khoanthu.setIdctthu(ct);
+        
+        CTKhoanthu savedCT = ctrepository.save(ct);
+
+        khoanthu.setIdctthu(savedCT);
         this.repository.save(khoanthu);
+
+        savedCT.setIdkhoanthu(khoanthu);
+        ctrepository.save(savedCT);
     }
 
     public void updateKhoanthu(Khoanthu khoanthu, CTKhoanthu ct){
