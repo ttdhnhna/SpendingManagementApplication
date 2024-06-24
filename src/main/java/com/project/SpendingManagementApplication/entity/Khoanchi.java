@@ -37,7 +37,7 @@ public class Khoanchi {
 
     private float tongchi;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date ngaychi;
 
