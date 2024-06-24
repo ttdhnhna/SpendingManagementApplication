@@ -100,7 +100,11 @@ This application has no explicit mapping for /error, so you are seeing this as a
 Mon Jun 24 17:39:19 ICT 2024
 There was an unexpected error (type=Bad Request, status=400).
 Validation failed for object='khoanchi'. Error count: 1
-org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public java.lang.String com.project.SpendingManagementApplication.controller.KhoanchiController.saveExpense(com.project.SpendingManagementApplication.entity.Khoanchi,java.lang.String,java.lang.String): [Field error in object 'khoanchi' on field 'ngaychi': rejected value [2024-06-24]; codes [typeMismatch.khoanchi.ngaychi,typeMismatch.ngaychi,typeMismatch.java.util.Date,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [khoanchi.ngaychi,ngaychi]; arguments []; default message [ngaychi]]; default message [Failed to convert property value of type 'java.lang.String' to required type 'java.util.Date' for property 'ngaychi'; Failed to convert from type [java.lang.String] to type [@org.springframework.format.annotation.DateTimeFormat @jakarta.persistence.Temporal java.util.Date] for value [2024-06-24]]]
+org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public java.lang.String com.project.SpendingManagementApplication.controller.KhoanchiController.saveExpense(com.project.SpendingManagementApplication.entity.Khoanchi,java.lang.String,java.lang.String): 
+[Field error in object 'khoanchi' on field 'ngaychi': rejected value [2024-06-24];
+ codes [typeMismatch.khoanchi.ngaychi,typeMismatch.ngaychi,typeMismatch.java.util.Date,typeMismatch]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [khoanchi.ngaychi,ngaychi]; arguments []; default message [ngaychi]]; 
+ default message [Failed to convert property value of type 'java.lang.String' to required type 'java.util.Date' for property 'ngaychi'; 
+ Failed to convert from type [java.lang.String] to type [@org.springframework.format.annotation.DateTimeFormat @jakarta.persistence.Temporal java.util.Date] for value [2024-06-24]]]
 	at org.springframework.web.method.annotation.ModelAttributeMethodProcessor.resolveArgument(ModelAttributeMethodProcessor.java:158)
 	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:122)
 	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:224)
