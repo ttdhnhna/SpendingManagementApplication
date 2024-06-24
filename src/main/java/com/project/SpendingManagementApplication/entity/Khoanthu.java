@@ -2,7 +2,9 @@ package com.project.SpendingManagementApplication.entity;
 
 import java.util.Date;
 
- import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,7 +37,8 @@ public class Khoanthu {
 
     private float tongthu;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Temporal(TemporalType.DATE)
     private Date ngaythu;
 
     @PrePersist
