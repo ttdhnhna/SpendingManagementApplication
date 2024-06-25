@@ -34,7 +34,7 @@ public class KhoanchiController {
         return "redirect:/expenses";
     }
 
-    @PostMapping("/udpateExpense")
+    @PostMapping("/updateExpense")
     public String updateExpense(@ModelAttribute("khoanchi") Khoanchi khoanchi,
                               @ModelAttribute("ctkhoanchi") CTKhoanchi ct){
         service.updateKhoanchi(khoanchi, ct);

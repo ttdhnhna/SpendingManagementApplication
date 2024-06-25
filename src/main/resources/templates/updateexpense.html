@@ -60,7 +60,7 @@
             <br>
             <h1 class="text-center">Cập nhật khoản chi</h1>
             <div class="card-body">
-                <form action="#" th:action="@{/saveExpense}" th:object="${khoanchi}" method="post">
+                <form action="#" th:action="@{/updateExpense}" th:object="${khoanchi}" method="post">
                     <!-- Phan action tren day chinh la cho se quyet dinh trang web se lam gi sau khi an
                     nut gui -->
                     <div class="form-group">
@@ -68,6 +68,13 @@
                             type="hidden"
                             th:field="*{idkhoanchi}"
                             class="form-control"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                             type="hidden"
+                             th:field="${ctkhoanchi.idctchi}"
+                             class="form-control"
                         />
                     </div>
                     <div class="form-group">

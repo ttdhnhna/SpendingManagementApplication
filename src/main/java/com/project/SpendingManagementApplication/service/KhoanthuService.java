@@ -38,9 +38,6 @@ public class KhoanthuService {
     }
 
     public void updateKhoanthu(Khoanthu khoanthu, CTKhoanthu ct){
-        if(khoanthu.getIdctthu()==null){
-            throw new RuntimeException("Khoản thu đang không có chi tiết");
-        }
         if(ct==null){
             throw new RuntimeException("Không tìm thấy id của chi tiết khoản thu: " + khoanthu.getIdctthu().getIdctthu());
         }

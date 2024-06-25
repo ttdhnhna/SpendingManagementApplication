@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-// import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToOne;
 
 
 @Entity
@@ -17,10 +17,10 @@ public class Khoanthu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idkhoanthu;
 
-    // @ManyToOne
-    // @JoinColumn(name = "iduser", nullable = false, referencedColumnName = "iduser")
-    // @JsonBackReference
-    // private User iduser;
+     @ManyToOne
+     @JoinColumn(name = "iduser", nullable = false, referencedColumnName = "iduser")
+     @JsonBackReference
+     private User iduser;
 
      @OneToOne(cascade = CascadeType.ALL)
      @JoinColumn(name = "idctthu", referencedColumnName = "idctthu")
@@ -49,13 +49,13 @@ public class Khoanthu {
         this.idkhoanthu = idkhoanthu;
     }
 
-    // public User getIduser() {
-    //     return iduser;
-    // }
+    public User getIduser() {
+        return iduser;
+    }
 
-    // public void setIduser(User iduser) {
-    //     this.iduser = iduser;
-    // }
+    public void setIduser(User iduser) {
+        this.iduser = iduser;
+    }
 
     public float getTongthu() {
         return tongthu;

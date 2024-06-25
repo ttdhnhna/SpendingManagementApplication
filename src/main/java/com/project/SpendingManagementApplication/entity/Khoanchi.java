@@ -12,8 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-// import jakarta.persistence.ManyToOne;
- import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -25,10 +25,10 @@ public class Khoanchi {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idkhoanchi;
 
-    // @ManyToOne
-    // @JoinColumn(name = "iduser", nullable = false, referencedColumnName = "iduser")
-    // @JsonBackReference
-    // private User iduser;
+     @ManyToOne
+     @JoinColumn(name = "iduser", nullable = false, referencedColumnName = "iduser")
+     @JsonBackReference
+     private User iduser;
 
      @OneToOne(cascade = CascadeType.ALL)
      @JoinColumn(name = "idctchi", referencedColumnName = "idctchi")
@@ -52,13 +52,13 @@ public class Khoanchi {
         this.idkhoanchi = idkhoanchi;
     }
 
-    // public User getIduser() {
-    //     return iduser;
-    // }
+    public User getIduser() {
+        return iduser;
+    }
 
-    // public void setIduser(User iduser) {
-    //     this.iduser = iduser;
-    // }
+    public void setIduser(User iduser) {
+        this.iduser = iduser;
+    }
 
     public float getTongchi() {
         return tongchi;

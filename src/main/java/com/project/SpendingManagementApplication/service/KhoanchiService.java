@@ -36,28 +36,8 @@ public class KhoanchiService {
         savedCT.setIdkhoanchi(khoanchi);
         ctrepository.save(savedCT);
     }
-    /*CTKhoanchi ct = new CTKhoanchi();
-        ct.setGhichu(ghichu);
-        ct.setTheloai(theloai);
-        ct.setTongchi(khoanchi.getTongchi());
-
-        // Save CTKhoanchi first to generate its ID
-        CTKhoanchi savedCt = ctrepository.save(ct);
-
-        // Set the saved CTKhoanchi to Khoanchi
-        khoanchi.setIdctchi(savedCt);
-
-        // Save Khoanchi
-        this.repository.save(khoanchi);
-
-        // Set Khoanchi to CTKhoanchi (for bidirectional relationship)
-        savedCt.setIdkhoanchi(khoanchi);
-        ctrepository.save(savedCt); */
 
     public void updateKhoanchi(Khoanchi khoanchi, CTKhoanchi ct){
-        if(khoanchi.getIdctchi()==null){
-            throw new RuntimeException("Khoản chi đang không có chi tiết");
-        }
         if(ct==null){
             throw new RuntimeException("Không tìm thấy id của chi tiết khoản chi: " + khoanchi.getIdctchi().getIdctchi());
         }
