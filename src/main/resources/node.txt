@@ -94,5 +94,4 @@ Post - Comments: 1-n
 Phần khoản chi đã xong rồi giờ sẽ làm tiếp phần khoản thu xong sẽ làm phần chi tiết của cả 2
 rồi sẽ làm phần tổng tiền rồi cuối cùng là trang chủ và phần tải khoản người dùng.
 
-Xong phan lien ket roi gio se lam chuc nang de khi cap nhat khoan thu, chi thi
-se co tac dong toi tong tien.
+Vừa cập nhật phần trang chủ nhưng sẽ cần phải chỉnh sửa thêm.

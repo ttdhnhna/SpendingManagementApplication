@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link">Trang chủ</a>
+                    <a th:href="@{/}"  class="nav-link">Trang chủ</a>
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/expenses}" class="nav-link">Quản lý chi tiêu</a>
@@ -81,18 +81,20 @@
                 <th>ID</th>
                 <th>Giá trị giao dịch</th>
                 <th>Ngày giao dịch </th>
+                <th>Thể loại </th>
                 <th>Chức năng</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each = "income : ${ListKhoanthu}">
-                <td th:text="${income.idkhoanthu}"></td>
-                <td th:text="${income.tongthu}" name="current"></td>
-                <td th:text="${income.ngaythu}"></td>
+            <tr th:each="item : ${combinedList}">
+                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? item.idkhoanchi : item.idkhoanthu}"></td>
+                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? item.tongchi : item.tongthu}"></td>
+                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? item.ngaychi : item.ngaythu}"></td>
+                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? 'Khoan Chi' : 'Khoan Thu'}"></td>
                 <td>
-                    <a th:href="@{/updateIncome/{id}(id=${income.idkhoanthu})}" class="btn btn-primary">Sửa</a>
+                    <a class="btn btn-primary">Sửa</a>
                     <a class="btn btn-primary">Chi tiết</a>
-                    <a th:href="@{/deleteIncome/{id}(id=${income.idkhoanthu})}" class="btn btn-danger">Xóa</a>
+                    <a class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
             </tbody>
