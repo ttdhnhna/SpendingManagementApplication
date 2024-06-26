@@ -17,6 +17,8 @@ public class KhoanchiService {
     KhoanchiRepository repository;
     @Autowired
     CTKhoanchiRepository ctrepository;
+    @Autowired
+    UserService uservice;
 
     public List<Khoanchi> getKhoanchi(){
         return repository.findAll();
@@ -31,6 +33,7 @@ public class KhoanchiService {
         CTKhoanchi savedCT = ctrepository.save(ct);
 
         khoanchi.setIdctchi(savedCT);
+        khoanchi.setIduser(uservice.getUserbyID(1));
         this.repository.save(khoanchi);
 
         savedCT.setIdkhoanchi(khoanchi);
@@ -43,6 +46,7 @@ public class KhoanchiService {
         }
         ct.setTongchi(khoanchi.getTongchi());
         ctrepository.save(ct);
+        khoanchi.setIduser(uservice.getUserbyID(1));
         this.repository.save(khoanchi);
     }
 

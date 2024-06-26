@@ -17,6 +17,8 @@ public class KhoanthuService {
     KhoanthuRepository repository;
     @Autowired
     CTKhoanthuRepository ctrepository;
+    @Autowired
+    UserService uservice;
 
     public List<Khoanthu> getKhoanthu(){
         return this.repository.findAll();
@@ -31,6 +33,7 @@ public class KhoanthuService {
         CTKhoanthu savedCT = ctrepository.save(ct);
 
         khoanthu.setIdctthu(savedCT);
+        khoanthu.setIduser(uservice.getUserbyID(1));
         this.repository.save(khoanthu);
 
         savedCT.setIdkhoanthu(khoanthu);
@@ -43,6 +46,7 @@ public class KhoanthuService {
         }
         ct.setTongthu(khoanthu.getTongthu());
         ctrepository.save(ct);
+        khoanthu.setIduser(uservice.getUserbyID(1));
         this.repository.save(khoanthu);
     }
 

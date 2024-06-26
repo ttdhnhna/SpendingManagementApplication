@@ -2,7 +2,7 @@ package com.project.SpendingManagementApplication.entity;
 
 import java.util.List;
 
-// import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -12,8 +12,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
- import jakarta.persistence.OneToMany;
-// import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,10 +31,10 @@ public class User {
     @JsonManagedReference
     private List<Khoanthu> idkhoanthu;
 
-    // @OneToOne(cascade = CascadeType.ALL)
-    // @JoinColumn(name = "idtongtien", referencedColumnName = "idtongtien")
-    // @JsonBackReference
-    // private Tongtien idtongtien;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idtongtien", referencedColumnName = "idtongtien")
+    @JsonBackReference
+    private Tongtien idtongtien;
 
     private String hoten;
     private String email;
@@ -98,13 +98,13 @@ public class User {
         this.idkhoanthu = idkhoanthu;
     }
 
-    // public Tongtien getIdtongtien() {
-    //     return idtongtien;
-    // }
+    public Tongtien getIdtongtien() {
+        return idtongtien;
+    }
 
-    // public void setIdtongtien(Tongtien idtongtien) {
-    //     this.idtongtien = idtongtien;
-    // }
+    public void setIdtongtien(Tongtien idtongtien) {
+        this.idtongtien = idtongtien;
+    }
 
     public String getNgaysinh() {
         return ngaysinh;

@@ -93,3 +93,15 @@ Post - Comments: 1-n
 
 Phần khoản chi đã xong rồi giờ sẽ làm tiếp phần khoản thu xong sẽ làm phần chi tiết của cả 2
 rồi sẽ làm phần tổng tiền rồi cuối cùng là trang chủ và phần tải khoản người dùng.
+{
+  "hoten": "Dat",
+  "email": "123@example.com",
+  "password": "123",
+  "ngaysinh": "1990-01-01",
+  "quequan": "Hanoi",
+  "gt": "Male",
+  "sdt": "0123456789",
+}
+
+Đã hoàn thành việc tạo liên kết cho người dùng với tt, kc, kt rồi giờ cần chạy thử xem có lk thành
+công được hay không?
