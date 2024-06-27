@@ -1,8 +1,7 @@
 package com.project.SpendingManagementApplication.controller;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +24,9 @@ public class AppController {
     public String getAll(Model model){
         List<Khoanchi> ListKhoanchi = kcservice.getKhoanchi();
         List<Khoanthu> ListKhoanthu = ktservice.getKhoanthu();
-        List<Object> combindedList = Stream.concat(ListKhoanchi.stream(), ListKhoanthu.stream()).collect(Collectors.toList());
+        List<Object> combindedList = new ArrayList<>();
+        combindedList.add(ListKhoanchi);
+        combindedList.add(ListKhoanthu);
         model.addAttribute("combindedList", combindedList);
         return "homepage";
     }

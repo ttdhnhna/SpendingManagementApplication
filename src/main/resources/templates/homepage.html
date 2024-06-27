@@ -86,17 +86,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${combinedList}">
-                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? item.idkhoanchi : item.idkhoanthu}"></td>
-                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? item.tongchi : item.tongthu}"></td>
-                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? item.ngaychi : item.ngaythu}"></td>
-                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? 'Khoan Chi' : 'Khoan Thu'}"></td>
-                <td>
-                    <a class="btn btn-primary">Sửa</a>
-                    <a class="btn btn-primary">Chi tiết</a>
-                    <a class="btn btn-danger">Xóa</a>
-                </td>
-            </tr>
+                <tr th:each="item : ${allTransactions}">
+                    <th:block th:if="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi)}">
+                        <td th:text="${item.idkhoanchi}"></td>
+                        <td th:text="${item.tongchi}"></td>
+                        <td th:text="${#dates.format(item.ngaychi, 'yyyy-MM-dd')}"></td>
+                        <td>Tiêu</td>
+                    </th:block>
+                    <th:block th:if="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanthu)}">
+                        <td th:text="${item.idkhoanthu}"></td>
+                        <td th:text="${item.tongthu}"></td>
+                        <td th:text="${#dates.format(item.ngaythu, 'yyyy-MM-dd')}"></td>
+                        <td>Thu</td>
+                    </th:block>
+                    <td>
+                        <a class="btn btn-primary">Sửa</a>
+                        <a class="btn btn-primary">Chi tiết</a>
+                        <a class="btn btn-danger">Xóa</a>
+                    </td>
+                </tr>
             </tbody>
         </table>
 
