@@ -61,8 +61,7 @@
         </div>
         <div class="row">
             &nbsp; &nbsp;
-            <!--th:text="${'₫' + #numbers.formatDecimal(Tongtien.tongtien, 1, 'COMMA', 2, 'POINT')}">-->
-            <h4 name="current">15000000</h4>
+            <h4 th:text="${'₫' + #numbers.formatDecimal(tt.tongtien, 1, 'COMMA', 2, 'POINT')}"></h4>
         </div>
         <div class="row">
             <div class="col-lg-3">
