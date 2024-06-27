@@ -14,7 +14,7 @@
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
         <!-- Brand -->
         <!--    Logo    -->
-        <a class="navbar-brand" >Money Savior</a>
+        <a class="navbar-brand">Money Savior</a>
 
         <!-- Toggler/collapsibe Button -->
         <!-- Đây sẽ là nơi xử lý việc gop menu lai khi thuc hien tren dien thoai -->
@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a th:href="@{/}"  class="nav-link">Trang chủ</a>
+                    <a th:href="@{/}" class="nav-link">Trang chủ</a>
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/expenses}" class="nav-link">Quản lý chi tiêu</a>
@@ -86,17 +86,17 @@
             </tr>
             </thead>
             <tbody>
-                <tr th:each="item : ${allTransactions}">
+                <tr th:each="item : ${combindedList}">
                     <th:block th:if="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi)}">
                         <td th:text="${item.idkhoanchi}"></td>
                         <td th:text="${item.tongchi}"></td>
-                        <td th:text="${#dates.format(item.ngaychi, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${item.ngaychi}"></td>
                         <td>Tiêu</td>
                     </th:block>
                     <th:block th:if="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanthu)}">
                         <td th:text="${item.idkhoanthu}"></td>
                         <td th:text="${item.tongthu}"></td>
-                        <td th:text="${#dates.format(item.ngaythu, 'yyyy-MM-dd')}"></td>
+                        <td th:text="${item.ngaythu}"></td>
                         <td>Thu</td>
                     </th:block>
                     <td>
