@@ -86,11 +86,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr th:each="item : ${combinedList}">
+                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? item.idkhoanchi : item.idkhoanthu}"></td>
+                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? item.tongchi : item.tongthu}"></td>
+                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? item.ngaychi : item.ngaythu}"></td>
+                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? 'Khoan Chi' : 'Khoan Thu'}"></td>
                 <td>
                     <a class="btn btn-primary">Sửa</a>
                     <a class="btn btn-primary">Chi tiết</a>

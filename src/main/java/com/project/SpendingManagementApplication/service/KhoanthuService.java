@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.SpendingManagementApplication.entity.CTKhoanthu;
 import com.project.SpendingManagementApplication.entity.Khoanthu;
+import com.project.SpendingManagementApplication.entity.Tongtien;
 import com.project.SpendingManagementApplication.repository.CTKhoanthuRepository;
 import com.project.SpendingManagementApplication.repository.KhoanthuRepository;
 
@@ -19,18 +20,29 @@ public class KhoanthuService {
     CTKhoanthuRepository ctrepository;
     @Autowired
     UserService uservice;
+    @Autowired
+    TongtienService ttservice;
 
     public List<Khoanthu> getKhoanthu(){
         return this.repository.findAll();
     }
 
     public void saveKhoanthu(Khoanthu khoanthu, String ghichu, String theloai){
+        Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
+
         CTKhoanthu ct = new CTKhoanthu();
         ct.setGhichu(ghichu);
         ct.setTheloai(theloai);
         ct.setTongthu(khoanthu.getTongthu());
         
         CTKhoanthu savedCT = ctrepository.save(ct);
+
+        tt.setTongtien(tt.getTongtien()+khoanthu.getTongthu());
+        if(tt.getTongtien()<0){
+            tt.setTongtien(0);
+            tt.setNo(0-tt.getTongtien());
+        }
+        ttservice.saveTT(tt);
 
         khoanthu.setIdctthu(savedCT);
         khoanthu.setIduser(uservice.getUserbyID(1));
@@ -41,11 +53,21 @@ public class KhoanthuService {
     }
 
     public void updateKhoanthu(Khoanthu khoanthu, CTKhoanthu ct){
+        Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
+        
         if(ct==null){
             throw new RuntimeException("Không tìm thấy id của chi tiết khoản thu: " + khoanthu.getIdctthu().getIdctthu());
         }
         ct.setTongthu(khoanthu.getTongthu());
         ctrepository.save(ct);
+        
+        tt.setTongtien(tt.getTongtien()+khoanthu.getTongthu());
+        if(tt.getTongtien()<0){
+            tt.setTongtien(0);
+            tt.setNo(0-tt.getTongtien());
+        }
+        ttservice.saveTT(tt);
+
         khoanthu.setIduser(uservice.getUserbyID(1));
         this.repository.save(khoanthu);
     }

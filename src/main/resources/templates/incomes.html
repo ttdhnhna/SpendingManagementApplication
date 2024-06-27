@@ -81,20 +81,18 @@
                 <th>ID</th>
                 <th>Giá trị giao dịch</th>
                 <th>Ngày giao dịch </th>
-                <th>Thể loại </th>
                 <th>Chức năng</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item : ${combinedList}">
-                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? item.idkhoanchi : item.idkhoanthu}"></td>
-                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? item.tongchi : item.tongthu}"></td>
-                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? item.ngaychi : item.ngaythu}"></td>
-                <td th:text="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi) ? 'Khoan Chi' : 'Khoan Thu'}"></td>
+            <tr th:each = "income : ${ListKhoanthu}">
+                <td th:text="${income.idkhoanthu}"></td>
+                <td th:text="${income.tongthu}" name="current"></td>
+                <td th:text="${income.ngaythu}"></td>
                 <td>
-                    <a class="btn btn-primary">Sửa</a>
+                    <a th:href="@{/updateIncome/{id}(id=${income.idkhoanthu})}" class="btn btn-primary">Sửa</a>
                     <a class="btn btn-primary">Chi tiết</a>
-                    <a class="btn btn-danger">Xóa</a>
+                    <a th:href="@{/deleteIncome/{id}(id=${income.idkhoanthu})}" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>
             </tbody>
