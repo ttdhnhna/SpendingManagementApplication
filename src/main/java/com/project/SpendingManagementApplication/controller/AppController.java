@@ -8,10 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.project.SpendingManagementApplication.entity.Khoanchi;
 import com.project.SpendingManagementApplication.entity.Khoanthu;
 import com.project.SpendingManagementApplication.entity.Tongtien;
+import com.project.SpendingManagementApplication.entity.User;
+import com.project.SpendingManagementApplication.entity.UserDto;
 import com.project.SpendingManagementApplication.service.KhoanchiService;
 import com.project.SpendingManagementApplication.service.KhoanthuService;
 import com.project.SpendingManagementApplication.service.TongtienService;
@@ -44,5 +49,29 @@ public class AppController {
         Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
         model.addAttribute("tt", tt);
         return "homepage";
+    }
+
+    @GetMapping("/userpage")
+    public String userDetails(Model model){
+        User user = uservice.getUserbyID(1);
+        model.addAttribute("user", user);
+        Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
+        model.addAttribute("tt", tt);
+        return "accountpage";
+    }
+
+    @GetMapping("/updateAccount/{id}")
+    public String updateUser(@PathVariable(value = "id") long id, Model model){
+        User user = uservice.getUserbyID(id);
+        model.addAttribute("user", user);
+        return "updateaccount";
+    }
+
+    @PostMapping("/updateAccount")
+    public String updateAccount(@ModelAttribute("user") UserDto userDto, Model model){
+        // uservice.updateUser(user);
+        User user = uservice.getUserbyID(userDto.getIduser());
+        uservice.updateUser(user, userDto);
+        return "redirect:/userpage";
     }
 }

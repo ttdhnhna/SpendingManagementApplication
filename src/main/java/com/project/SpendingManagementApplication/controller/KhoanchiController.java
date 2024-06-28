@@ -31,14 +31,14 @@ public class KhoanchiController {
                               @RequestParam("ghichu") String ghichu,
                               @RequestParam("theloai") String theloai){
         service.saveKhoanchi(khoanchi, ghichu, theloai);
-        return "redirect:/expenses";
+        return "redirect:/";
     }
 
     @PostMapping("/updateExpense")
     public String updateExpense(@ModelAttribute("khoanchi") Khoanchi khoanchi,
                               @ModelAttribute("ctkhoanchi") CTKhoanchi ct){
         service.updateKhoanchi(khoanchi, ct);
-        return "redirect:/expenses";
+        return "redirect:/";
     } 
 
     @GetMapping("/addExpense")

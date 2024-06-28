@@ -44,6 +44,7 @@ public class User {
     private String quequan;
     private String gt;
     private String sdt;
+    private String dantoc;
     @Lob
     private String anh;
 
@@ -144,6 +145,14 @@ public class User {
 
     public void setAnh(String anh) {
         this.anh = anh;
+    }
+
+    public String getDantoc() {
+        return dantoc;
+    }
+
+    public void setDantoc(String dantoc) {
+        this.dantoc = dantoc;
     }
 
     

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<!-- Header -->
+    <!-- Header -->
     <nav class="navbar navbar-expand-md bg-dark navbar-dark">
         <!-- Brand -->
         <!--    Logo    -->
@@ -38,7 +38,7 @@
                     <a class="nav-link" >Forum</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" >Tài khoản</a>
+                    <a th:href="@{/userpage}" class="nav-link" >Tài khoản</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <a class="nav-link" th:href="@{/logout} ">Đăng xuất</a>
@@ -91,18 +91,23 @@
                         <td th:text="${item.tongchi}"></td>
                         <td th:text="${item.ngaychi}"></td>
                         <td>Tiêu</td>
+                        <td>
+                            <a th:href="@{/updateExpense/{id}(id=${item.idkhoanchi})}" class="btn btn-primary">Sửa</a>
+                            <a class="btn btn-primary">Chi tiết</a>
+                            <a th:href="@{/deleteExpense/{id}(id=${item.idkhoanchi})}" class="btn btn-danger">Xóa</a>
+                        </td>
                     </th:block>
                     <th:block th:if="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanthu)}">
                         <td th:text="${item.idkhoanthu}"></td>
                         <td th:text="${item.tongthu}"></td>
                         <td th:text="${item.ngaythu}"></td>
                         <td>Thu</td>
+                        <td>
+                            <a th:href="@{/updateIncome/{id}(id=${item.idkhoanthu})}" class="btn btn-primary">Sửa</a>
+                            <a class="btn btn-primary">Chi tiết</a>
+                            <a th:href="@{/deleteIncome/{id}(id=${item.idkhoanthu})}" class="btn btn-danger">Xóa</a>
+                        </td>
                     </th:block>
-                    <td>
-                        <a class="btn btn-primary">Sửa</a>
-                        <a class="btn btn-primary">Chi tiết</a>
-                        <a class="btn btn-danger">Xóa</a>
-                    </td>
                 </tr>
             </tbody>
         </table>

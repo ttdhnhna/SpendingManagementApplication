@@ -31,14 +31,14 @@ public class KhoanthuController {
                              @RequestParam("ghichu") String ghichu,
                              @RequestParam("theloai") String theloai){
         service.saveKhoanthu(khoanthu, ghichu, theloai);
-        return "redirect:/incomes";
+        return "redirect:/";
     }
 
     @PostMapping("/updateIncome")
     public String jupdateIncome(@ModelAttribute("khoanthu") Khoanthu khoanthu,
                              @ModelAttribute("ctkhoanthu") CTKhoanthu ct){
         service.updateKhoanthu(khoanthu, ct);
-        return "redirect:/incomes";
+        return "redirect:/";
     }
 
     @GetMapping("/addIncome")
