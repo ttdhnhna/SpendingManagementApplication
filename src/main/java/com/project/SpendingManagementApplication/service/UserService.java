@@ -34,7 +34,6 @@ public class UserService {
         user.setIdtongtien(savedTT);
         this.repository.save(user);
 
-        savedTT.setIduser(user);
         ttrepository.save(savedTT);
     }
 
