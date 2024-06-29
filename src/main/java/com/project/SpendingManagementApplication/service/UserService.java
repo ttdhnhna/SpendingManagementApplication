@@ -21,8 +21,7 @@ public class UserService {
     UserRepository repository;
     @Autowired
     TongtienRepository ttrepository;
-    @Autowired
-    TongtienService ttservice;
+
 
     public List<User> getUser(){
         return repository.findAll();

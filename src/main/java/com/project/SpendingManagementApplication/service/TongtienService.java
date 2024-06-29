@@ -13,9 +13,7 @@ import com.project.SpendingManagementApplication.repository.TongtienRepository;
 public class TongtienService {
     @Autowired
     TongtienRepository repository;
-    @Autowired
-    UserService userService;
-    
+
     public List<Tongtien> getTT(){
         return repository.findAll();
     }
