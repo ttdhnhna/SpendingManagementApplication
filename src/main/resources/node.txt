@@ -94,3 +94,20 @@ Post - Comments: 1-n
 Phần khoản chi đã xong rồi giờ sẽ làm tiếp phần khoản thu xong sẽ làm phần chi tiết của cả 2
 rồi sẽ làm phần tổng tiền rồi cuối cùng là trang chủ và phần tải khoản người dùng.
 
+The dependencies of some of the beans in the application context form a cycle:
+
+   appController (field com.project.SpendingManagementApplication.service.KhoanchiService com.project.SpendingManagementApplication.controller.AppController.kcservice)
+      ↓
+   khoanchiService (field com.project.SpendingManagementApplication.service.UserService com.project.SpendingManagementApplication.service.KhoanchiService.uservice)
+┌─────┐
+|  userService (field com.project.SpendingManagementApplication.service.TongtienService com.project.SpendingManagementApplication.service.UserService.ttservice)
+↑     ↓
+|  tongtienService (field com.project.SpendingManagementApplication.service.UserService com.project.SpendingManagementApplication.service.TongtienService.userService)
+└─────┘
+
+Here’s the cycle in your application:
+
+AppController depends on KhoanchiService.
+KhoanchiService depends on UserService.
+UserService depends on TongtienService.
+TongtienService depends on UserService.

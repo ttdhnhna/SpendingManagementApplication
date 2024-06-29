@@ -22,11 +22,11 @@ public class UserService {
     @Autowired
     TongtienRepository ttrepository;
 
-
     public List<User> getUser(){
         return repository.findAll();
     }
 
+    // Loi o day
     public void saveUser(User user){
         Tongtien tt = new Tongtien();
         Tongtien savedTT = ttrepository.save(tt);
