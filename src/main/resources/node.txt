@@ -94,3 +94,25 @@ Post - Comments: 1-n
 Phần khoản chi đã xong rồi giờ sẽ làm tiếp phần khoản thu xong sẽ làm phần chi tiết của cả 2
 rồi sẽ làm phần tổng tiền rồi cuối cùng là trang chủ và phần tải khoản người dùng.
 
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+   appController (field com.project.SpendingManagementApplication.service.KhoanchiService com.project.SpendingManagementApplication.controller.AppController.kcservice)
+      ↓
+   khoanchiService (field com.project.SpendingManagementApplication.service.UserService com.project.SpendingManagementApplication.service.KhoanchiService.uservice)
+┌─────┐
+|  userService (field com.project.SpendingManagementApplication.service.TongtienService com.project.SpendingManagementApplication.service.UserService.ttservice)
+↑     ↓
+|  tongtienService (field com.project.SpendingManagementApplication.service.UserService com.project.SpendingManagementApplication.service.TongtienService.userService)
+└─────┘
+
+
+Action:
+
+Relying upon circular references is discouraged and they are prohibited by default. Update your application to remove the dependency cycle between beans. As a last resort, it may be possible to break the cycle automatically by setting spring.main.allow-circular-references to true.
+
