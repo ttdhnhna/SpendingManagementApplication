@@ -69,7 +69,6 @@ public class AppController {
 
     @PostMapping("/updateAccount")
     public String updateAccount(@ModelAttribute("user") UserDto userDto, Model model){
-        // uservice.updateUser(user);
         User user = uservice.getUserbyID(userDto.getIduser());
         uservice.updateUser(user, userDto);
         return "redirect:/userpage";

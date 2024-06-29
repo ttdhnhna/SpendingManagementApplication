@@ -29,12 +29,13 @@ public class UserService {
     }
 
     public void saveUser(User user){
-//        Tongtien tt = new Tongtien();
-//        Tongtien savedTT = ttrepository.save(tt);
-//        user.setIdtongtien(savedTT);
+        Tongtien tt = new Tongtien();
+        Tongtien savedTT = ttrepository.save(tt);
+        user.setIdtongtien(savedTT);
         this.repository.save(user);
 
-//        ttrepository.save(savedTT);
+        savedTT.setIduser(user);
+        ttrepository.save(savedTT);
     }
 
     public void updateUser(User user, UserDto userDto){
@@ -59,8 +60,6 @@ public class UserService {
         user.setSdt(userDto.getSdt());
         user.setEmail(userDto.getEmail());
         
-
-
         this.repository.save(user);
     }
 

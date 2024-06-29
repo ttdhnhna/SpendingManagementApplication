@@ -21,7 +21,6 @@ public class TongtienService {
     }
 
     public void saveTT(Tongtien tongtien){
-        tongtien.setIduser(userService.getUserbyID(1));
         this.repository.save(tongtien);
     }
 

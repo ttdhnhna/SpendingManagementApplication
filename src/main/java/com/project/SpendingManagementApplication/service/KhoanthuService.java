@@ -11,6 +11,7 @@ import com.project.SpendingManagementApplication.entity.Khoanthu;
 import com.project.SpendingManagementApplication.entity.Tongtien;
 import com.project.SpendingManagementApplication.repository.CTKhoanthuRepository;
 import com.project.SpendingManagementApplication.repository.KhoanthuRepository;
+import com.project.SpendingManagementApplication.repository.TongtienRepository;
 
 @Service
 public class KhoanthuService {
@@ -21,14 +22,14 @@ public class KhoanthuService {
     @Autowired
     UserService uservice;
     @Autowired
-    TongtienService ttservice;
+    TongtienRepository ttrepository;
 
     public List<Khoanthu> getKhoanthu(){
         return this.repository.findAll();
     }
 
     public void saveKhoanthu(Khoanthu khoanthu, String ghichu, String theloai){
-        Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
+        Tongtien tt = uservice.getUserbyID(1).getIdtongtien();
 
         CTKhoanthu ct = new CTKhoanthu();
         ct.setGhichu(ghichu);
@@ -42,7 +43,7 @@ public class KhoanthuService {
             tt.setTongtien(0);
             tt.setNo(0-tt.getTongtien());
         }
-        ttservice.saveTT(tt);
+        ttrepository.save(tt);
 
         khoanthu.setIdctthu(savedCT);
         khoanthu.setIduser(uservice.getUserbyID(1));
@@ -53,7 +54,7 @@ public class KhoanthuService {
     }
 
     public void updateKhoanthu(Khoanthu khoanthu, CTKhoanthu ct){
-        Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
+        Tongtien tt = uservice.getUserbyID(1).getIdtongtien();
         
         if(ct==null){
             throw new RuntimeException("Không tìm thấy id của chi tiết khoản thu: " + khoanthu.getIdctthu().getIdctthu());
@@ -66,7 +67,7 @@ public class KhoanthuService {
             tt.setTongtien(0);
             tt.setNo(0-tt.getTongtien());
         }
-        ttservice.saveTT(tt);
+        ttrepository.save(tt);
 
         khoanthu.setIduser(uservice.getUserbyID(1));
         this.repository.save(khoanthu);

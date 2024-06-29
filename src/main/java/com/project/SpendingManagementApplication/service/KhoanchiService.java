@@ -11,6 +11,7 @@ import com.project.SpendingManagementApplication.entity.Khoanchi;
 import com.project.SpendingManagementApplication.entity.Tongtien;
 import com.project.SpendingManagementApplication.repository.CTKhoanchiRepository;
 import com.project.SpendingManagementApplication.repository.KhoanchiRepository;
+import com.project.SpendingManagementApplication.repository.TongtienRepository;
 
 @Service
 public class KhoanchiService {
@@ -21,14 +22,14 @@ public class KhoanchiService {
     @Autowired
     UserService uservice;
     @Autowired 
-    TongtienService ttservice;
+    TongtienRepository ttrepository;
 
     public List<Khoanchi> getKhoanchi(){
         return repository.findAll();
     }
 
     public void saveKhoanchi(Khoanchi khoanchi, String ghichu, String theloai){
-        Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
+        Tongtien tt = uservice.getUserbyID(1).getIdtongtien();
 
         CTKhoanchi ct=new CTKhoanchi();
         ct.setGhichu(ghichu);
@@ -42,7 +43,7 @@ public class KhoanchiService {
             tt.setTongtien(0);
             tt.setNo(0-tt.getTongtien());
         }
-        ttservice.saveTT(tt);
+        ttrepository.save(tt);
 
         khoanchi.setIdctchi(savedCT);
         khoanchi.setIduser(uservice.getUserbyID(1));
@@ -53,7 +54,7 @@ public class KhoanchiService {
     }
 
     public void updateKhoanchi(Khoanchi khoanchi, CTKhoanchi ct){
-        Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
+        Tongtien tt = uservice.getUserbyID(1).getIdtongtien();
         if(ct==null){
             throw new RuntimeException("Không tìm thấy id của chi tiết khoản chi: " + khoanchi.getIdctchi().getIdctchi());
         }
@@ -62,7 +63,7 @@ public class KhoanchiService {
             tt.setTongtien(0);
             tt.setNo(0-tt.getTongtien());
         }
-        ttservice.saveTT(tt);
+        ttrepository.save(tt);
 
         ct.setTongchi(khoanchi.getTongchi());
         ctrepository.save(ct);
