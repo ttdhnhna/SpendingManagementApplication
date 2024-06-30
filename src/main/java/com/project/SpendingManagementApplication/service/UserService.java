@@ -37,19 +37,6 @@ public class UserService {
         savedTT.setIduser(savedUser);
         ttrepository.save(savedTT);
     }
-    /*public void saveUser(User user){
-        // Create and save the Tongtien
-        Tongtien tt = new Tongtien();
-        Tongtien savedTT = ttrepository.save(tt);
-
-        // Save the User with the reference to Tongtien
-        user.setIdtongtien(savedTT);
-        User savedUser = this.repository.save(user);
-
-        // Update the Tongtien to reference the User
-        savedTT.setIduser(savedUser);
-        ttrepository.save(savedTT);
-    } */
 
     public void updateUser(User user, UserDto userDto){
         MultipartFile file = userDto.getAnh();

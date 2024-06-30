@@ -3,6 +3,7 @@ package com.project.SpendingManagementApplication.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +22,7 @@ public class KhoanthuController {
 
     @GetMapping("/incomes")
     public String getIncomes(Model model){
-        List<Khoanthu> ListKhoanthu = service.getKhoanthu();
-        model.addAttribute("ListKhoanthu", ListKhoanthu);
-        return "incomes";
+        return findPaginated(1, "idkhoanthu", "asc", model);
     }
 
     @PostMapping("/saveIncome")
@@ -62,4 +61,25 @@ public class KhoanthuController {
         this.service.deleteKhoanthubyID(id);
         return "redirect:/incomes";
     }
+
+    @GetMapping("/pageKT/{pageKTNo}")
+    public String findPaginated(@PathVariable(value = "pageKTNo") int pageNo, 
+        @RequestParam("sortField") String sortField,
+        @RequestParam("sortDir") String sortDir, Model model){
+            int pageSize = 10;
+
+            Page<Khoanthu> page = service.findPaginated(pageNo, pageSize, sortField, sortDir);
+            List<Khoanthu> ListKhoanthu = page.getContent();
+
+            model.addAttribute("currentPage", pageNo);
+            model.addAttribute("totalPages", page.getTotalPages());
+            model.addAttribute("totalItems", page.getTotalElements());
+
+            model.addAttribute("sortField", sortField);
+            model.addAttribute("sortDir", sortDir);
+            model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+            model.addAttribute("ListKhoanthu", ListKhoanthu);
+            return "incomes";
+        }
 }

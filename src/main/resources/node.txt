@@ -94,4 +94,5 @@ Post - Comments: 1-n
 Phần khoản chi đã xong rồi giờ sẽ làm tiếp phần khoản thu xong sẽ làm phần chi tiết của cả 2
 rồi sẽ làm phần tổng tiền rồi cuối cùng là trang chủ và phần tải khoản người dùng.
 
-Chay thanh cong
+* CHÚ Ý: Khi muốn liên kết 2 lớp với nhau thì nên tạo một liên kết gián tiếp kiểu như là tạo 1
+biến mới với giá trị của biến vừa tạo xong liên kết với biến mà mình muốn liên kết.
