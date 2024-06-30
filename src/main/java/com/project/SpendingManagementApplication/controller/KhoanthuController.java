@@ -66,20 +66,20 @@ public class KhoanthuController {
     public String findPaginated(@PathVariable(value = "pageKTNo") int pageNo, 
         @RequestParam("sortField") String sortField,
         @RequestParam("sortDir") String sortDir, Model model){
-            int pageSize = 10;
+        int pageSize = 10;
 
-            Page<Khoanthu> page = service.findPaginated(pageNo, pageSize, sortField, sortDir);
-            List<Khoanthu> ListKhoanthu = page.getContent();
+        Page<Khoanthu> page = service.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Khoanthu> ListKhoanthu = page.getContent();
 
-            model.addAttribute("currentPage", pageNo);
-            model.addAttribute("totalPages", page.getTotalPages());
-            model.addAttribute("totalItems", page.getTotalElements());
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
 
-            model.addAttribute("sortField", sortField);
-            model.addAttribute("sortDir", sortDir);
-            model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
-            model.addAttribute("ListKhoanthu", ListKhoanthu);
-            return "incomes";
-        }
+        model.addAttribute("ListKhoanthu", ListKhoanthu);
+        return "incomes";
+    }
 }
