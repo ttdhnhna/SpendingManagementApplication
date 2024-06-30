@@ -94,7 +94,7 @@
                         <div class="form-group">
                             <label>Ngày sinh</label>
                             <input 
-                                type="text"
+                                type="date"
                                 name="ngaysinh"
                                 th:field="*{ngaysinh}"
                                 class="form-control"
@@ -148,7 +148,7 @@
                         <div class="form-group">
                             <label>Ảnh đại điện: </label>   
                             <br>
-                            <img th:src="${'data:image/jpeg;base64,' + employee.anh}" height="100" width="100" style="margin-top: 10px; margin-bottom: 15px;">
+                            <img th:src="${'data:image/jpeg;base64,' + user.anh}" height="100" width="100" style="margin-top: 10px; margin-bottom: 15px;">
                             <br>
                             <input
                                 type="file"
