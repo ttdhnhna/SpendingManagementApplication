@@ -65,8 +65,11 @@
         </div>
         <div class="row">
             <div class="col-lg-3">
-                <a class="btn btn-primary btn-sm mb-3">
-                    Thêm giao dịch
+                <a th:href="@{/addExpense}" class="btn btn-primary btn-sm mb-3">
+                    Thêm chi tiêu
+                </a>
+                <a th:href="@{/addIncome}" class="btn btn-primary btn-sm mb-3">
+                    Thêm thu nhập
                 </a>
             </div>
         </div>
@@ -90,7 +93,7 @@
                         <td th:text="${item.idkhoanchi}"></td>
                         <td th:text="${item.tongchi}"></td>
                         <td th:text="${item.ngaychi}"></td>
-                        <td>Tiêu</td>
+                        <td>Khoản tiêu</td>
                         <td>
                             <a th:href="@{/updateExpense/{id}(id=${item.idkhoanchi})}" class="btn btn-primary">Sửa</a>
                             <a class="btn btn-primary">Chi tiết</a>
@@ -101,7 +104,7 @@
                         <td th:text="${item.idkhoanthu}"></td>
                         <td th:text="${item.tongthu}"></td>
                         <td th:text="${item.ngaythu}"></td>
-                        <td>Thu</td>
+                        <td>Khoản thu</td>
                         <td>
                             <a th:href="@{/updateIncome/{id}(id=${item.idkhoanthu})}" class="btn btn-primary">Sửa</a>
                             <a class="btn btn-primary">Chi tiết</a>

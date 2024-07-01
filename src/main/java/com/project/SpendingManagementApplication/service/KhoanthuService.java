@@ -33,7 +33,7 @@ public class KhoanthuService {
     }
 
     public void saveKhoanthu(Khoanthu khoanthu, String ghichu, String theloai){
-        Tongtien tt = uservice.getUserbyID(1).getIdtongtien();
+        float thongke=khoanthu.getThongke();
 
         CTKhoanthu ct = new CTKhoanthu();
         ct.setGhichu(ghichu);
@@ -41,37 +41,35 @@ public class KhoanthuService {
         ct.setTongthu(khoanthu.getTongthu());
         
         CTKhoanthu savedCT = ctrepository.save(ct);
-
-        tt.setTongtien(tt.getTongtien()+khoanthu.getTongthu());
-        if(tt.getTongtien()<0){
-            tt.setTongtien(0);
-            tt.setNo(0-tt.getTongtien());
-        }
-        ttrepository.save(tt);
+        tinhTongtien(khoanthu,0);
 
         khoanthu.setIdctthu(savedCT);
         khoanthu.setIduser(uservice.getUserbyID(1));
+        thongke += khoanthu.getTongthu();
+        khoanthu.setThongke(thongke);
         this.repository.save(khoanthu);
 
         savedCT.setIdkhoanthu(khoanthu);
         ctrepository.save(savedCT);
     }
 
-    public void updateKhoanthu(Khoanthu khoanthu, CTKhoanthu ct){
-        Tongtien tt = uservice.getUserbyID(1).getIdtongtien();
-        
+    public void updateKhoanthu(Khoanthu khoanthu, CTKhoanthu ct){      
+        float ttcu = getKhoanthubyID(khoanthu.getIdkhoanthu()).getTongthu(); 
+        float thongke = khoanthu.getThongke(); 
         if(ct==null){
             throw new RuntimeException("Không tìm thấy id của chi tiết khoản thu: " + khoanthu.getIdctthu().getIdctthu());
         }
+ 
+        if(khoanthu.getTongthu()>ttcu){
+            thongke += khoanthu.getTongthu() - ttcu;
+        }else{
+            thongke -= ttcu - khoanthu.getTongthu();
+        }
+        khoanthu.setThongke(thongke);
+        tinhTongtien(khoanthu, khoanthu.getTongthu() - ttcu);
+
         ct.setTongthu(khoanthu.getTongthu());
         ctrepository.save(ct);
-        
-        tt.setTongtien(tt.getTongtien()+khoanthu.getTongthu());
-        if(tt.getTongtien()<0){
-            tt.setTongtien(0);
-            tt.setNo(0-tt.getTongtien());
-        }
-        ttrepository.save(tt);
 
         khoanthu.setIduser(uservice.getUserbyID(1));
         this.repository.save(khoanthu);
@@ -97,5 +95,15 @@ public class KhoanthuService {
             Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(pageNo-1, pageSize, sort);
         return this.repository.findAll(pageable);
+    }
+
+    public void tinhTongtien(Khoanthu khoanthu, float du){
+        Tongtien tt = uservice.getUserbyID(1).getIdtongtien();
+        tt.setTongtien(tt.getTongtien()+khoanthu.getTongthu()+du);
+        if(tt.getTongtien()<0){
+            tt.setTongtien(0);
+            tt.setNo(0-tt.getTongtien());
+        }
+        ttrepository.save(tt);
     }
 }

@@ -33,7 +33,7 @@ public class KhoanchiService {
     }
 
     public void saveKhoanchi(Khoanchi khoanchi, String ghichu, String theloai){
-        Tongtien tt = uservice.getUserbyID(1).getIdtongtien();
+        float thongke=khoanchi.getThongke();
 
         CTKhoanchi ct=new CTKhoanchi();
         ct.setGhichu(ghichu);
@@ -41,16 +41,12 @@ public class KhoanchiService {
         ct.setTongchi(khoanchi.getTongchi());
 
         CTKhoanchi savedCT = ctrepository.save(ct);
-
-        tt.setTongtien(tt.getTongtien()-khoanchi.getTongchi());
-        if(tt.getTongtien()<0){
-            tt.setTongtien(0);
-            tt.setNo(0-tt.getTongtien());
-        }
-        ttrepository.save(tt);
+        tinhTongtien(khoanchi, 0);
 
         khoanchi.setIdctchi(savedCT);
         khoanchi.setIduser(uservice.getUserbyID(1));
+        thongke += khoanchi.getTongchi();
+        khoanchi.setThongke(thongke);
         this.repository.save(khoanchi);
 
         savedCT.setIdkhoanchi(khoanchi);
@@ -58,16 +54,19 @@ public class KhoanchiService {
     }
 
     public void updateKhoanchi(Khoanchi khoanchi, CTKhoanchi ct){
-        Tongtien tt = uservice.getUserbyID(1).getIdtongtien();
+        float tccu = getKhoanchibyID(khoanchi.getIdkhoanchi()).getTongchi();
+        float thongke = khoanchi.getThongke();
         if(ct==null){
             throw new RuntimeException("Không tìm thấy id của chi tiết khoản chi: " + khoanchi.getIdctchi().getIdctchi());
         }
-        tt.setTongtien(tt.getTongtien()-khoanchi.getTongchi());
-        if(tt.getTongtien()<0){
-            tt.setTongtien(0);
-            tt.setNo(0-tt.getTongtien());
+
+        if(khoanchi.getTongchi()>tccu){
+            thongke += khoanchi.getTongchi() - tccu;
+        }else{
+            thongke -= tccu - khoanchi.getTongchi(); 
         }
-        ttrepository.save(tt);
+        khoanchi.setThongke(thongke);
+        tinhTongtien(khoanchi, tccu - khoanchi.getTongchi());
 
         ct.setTongchi(khoanchi.getTongchi());
         ctrepository.save(ct);
@@ -95,5 +94,15 @@ public class KhoanchiService {
             Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(pageNo-1, pageSize, sort);
         return this.repository.findAll(pageable);
+    }
+
+    public void tinhTongtien(Khoanchi khoanchi, float du){
+        Tongtien tt = uservice.getUserbyID(1).getIdtongtien();
+        tt.setTongtien(tt.getTongtien()-khoanchi.getTongchi()+du);
+        if(tt.getTongtien()<0){
+            tt.setTongtien(0);
+            tt.setNo(0-tt.getTongtien());
+        }
+        ttrepository.save(tt);
     }
 }

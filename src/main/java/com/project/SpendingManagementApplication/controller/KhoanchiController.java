@@ -22,9 +22,7 @@ public class KhoanchiController {
 
     @GetMapping("/expenses")
     public String getExpenses(Model model){
-        List<Khoanchi> ListKhoanchi = service.getKhoanchi();
-        model.addAttribute("ListKhoanchi", ListKhoanchi);
-        return "expenses";
+        return findPaginated(1, "idkhoanchi", "asc", model);
     }
 
     @PostMapping("/saveExpense")

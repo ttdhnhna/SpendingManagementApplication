@@ -33,6 +33,8 @@ public class Khoanthu {
     @Temporal(TemporalType.DATE)
     private Date ngaythu;
 
+    private float thongke;
+
     @PrePersist
     public void onUpdate(){
         this.ngaythu = new Date();
@@ -79,6 +81,14 @@ public class Khoanthu {
 
     public void setNgaythu(Date ngaythu) {
         this.ngaythu = ngaythu;
+    }
+
+    public float getThongke() {
+        return thongke;
+    }
+
+    public void setThongke(float thongke) {
+        this.thongke = thongke;
     }
 
     

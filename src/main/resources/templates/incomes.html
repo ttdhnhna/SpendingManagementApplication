@@ -61,8 +61,7 @@
         </div>
         <div class="row">
             &nbsp; &nbsp;
-            <!--th:text="${'₫' + #numbers.formatDecimal(Tongtien.tongtien, 1, 'COMMA', 2, 'POINT')}">-->
-            <h4 name="current">1000000</h4>
+            <h4 th:text="${'₫' + #numbers.formatDecimal(income.thongke, 1, 'COMMA', 2, 'POINT')}"></h4>
         </div>
         <div class="row">
             <div class="col-lg-3">
@@ -78,16 +77,24 @@
         <table class="table thead-light table-bordered">
             <thead class="table-dark">
             <tr>
-                <th>ID</th>
-                <th>Giá trị giao dịch</th>
-                <th>Ngày giao dịch </th>
-                <th>Chức năng</th>
+                <th>
+                    <a th:href="@{'/pageKT/' + ${currentPage} + '?sortField=idkhoanthu&sortDir=' + ${reverseSortDir}}">ID</a>
+                </th>
+                <th>
+                    <a th:href="@{'/pageKT/' + ${currentPage} + '?sortField=tongthu&sortDir=' + ${reverseSortDir}}">Giá trị giao dịch</a>
+                </th>
+                <th>
+                    <a th:href="@{'/pageKT/' + ${currentPage} + '?sortField=ngaythu&sortDir=' + ${reverseSortDir}}">Ngày giao dịch </a>
+                </th>
+                <th>
+                    Chức năng
+                </th>
             </tr>
             </thead>
             <tbody>
             <tr th:each = "income : ${ListKhoanthu}">
                 <td th:text="${income.idkhoanthu}"></td>
-                <td th:text="${income.tongthu}" name="current"></td>
+                <td th:text="${'₫' + #numbers.formatDecimal(income.tongthu, 1, 'COMMA', 2, 'POINT')}"></td>
                 <td th:text="${income.ngaythu}"></td>
                 <td>
                     <a th:href="@{/updateIncome/{id}(id=${income.idkhoanthu})}" class="btn btn-primary">Sửa</a>
@@ -150,19 +157,5 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        function formatVND(n, currency) {
-          return currency + n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-          var currentElements = document.getElementsByName('current');
-          for (var i = 0; i < currentElements.length; i++) {
-            var currentValue = parseInt(currentElements[i].textContent);
-            currentElements[i].textContent = formatVND(currentValue, '₫');
-          }
-        });
-    </script>
 </body>
 </html>

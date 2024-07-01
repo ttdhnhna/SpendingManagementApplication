@@ -41,7 +41,6 @@ public class UserService {
     public void updateUser(User user, UserDto userDto){
         MultipartFile file = userDto.getAnh();
         if (file != null && !file.isEmpty()) {
-            @SuppressWarnings("null")
             String filename = StringUtils.cleanPath(file.getOriginalFilename());
             if (filename.contains("..")) {
                 throw new IllegalStateException("File không hợp lệ!");
