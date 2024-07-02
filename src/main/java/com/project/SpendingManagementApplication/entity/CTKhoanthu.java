@@ -23,6 +23,7 @@ public class CTKhoanthu {
     private float tongthu;
     private String theloai;
     private String ghichu;
+    private float tongtien;
 
     public CTKhoanthu() {
     }
@@ -67,5 +68,11 @@ public class CTKhoanthu {
         this.ghichu = ghichu;
     }
 
-    
+    public float getTongtien() {
+        return tongtien;
+    }
+
+    public void setTongtien(float tongtien) {
+        this.tongtien = tongtien;
+    }
 }

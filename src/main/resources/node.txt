@@ -97,5 +97,7 @@ rồi sẽ làm phần tổng tiền rồi cuối cùng là trang chủ và ph�
 * CHÚ Ý: Khi muốn liên kết 2 lớp với nhau thì nên tạo một liên kết gián tiếp kiểu như là tạo 1
 biến mới với giá trị của biến vừa tạo xong liên kết với biến mà mình muốn liên kết.
 
-Đã cập nhật phần tổng chi và tổng thu của người dùng với 1 ít nâng cấp phần tính tiền trong ví
-cần chạy thử. 
+Can phai sua lai phan thong ke trong 2 bang thu va chi de income va expense se co 2 bang rieng
+lk toi 2 bang nay chi phuc vu muc dich thong ke tien trong thang da chi hoac thu, con dau trong
+phan chi tiet cua 2 bang nay minh se bo sung them phan tong tien de ghi nho phan tong tien luc
+bo sung them khoan chi hoac thu day.
