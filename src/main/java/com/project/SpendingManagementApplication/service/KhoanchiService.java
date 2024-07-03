@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.project.SpendingManagementApplication.entity.CTKhoanchi;
+import com.project.SpendingManagementApplication.entity.ExpenseStatistic;
 import com.project.SpendingManagementApplication.entity.Khoanchi;
 import com.project.SpendingManagementApplication.entity.Tongtien;
 import com.project.SpendingManagementApplication.repository.CTKhoanchiRepository;
@@ -23,17 +24,21 @@ public class KhoanchiService {
     KhoanchiRepository repository;
     @Autowired
     CTKhoanchiRepository ctrepository;
-    @Autowired
-    UserService uservice;
     @Autowired 
     TongtienRepository ttrepository;
+    @Autowired
+    UserService uservice;
+    @Autowired
+    ExpenseStatisticService esservice;
+
 
     public List<Khoanchi> getKhoanchi(){
         return repository.findAll();
     }
 
     public void saveKhoanchi(Khoanchi khoanchi, String ghichu, String theloai){
-        float thongke=khoanchi.getThongke();
+        ExpenseStatistic es = esservice.getESbyID(khoanchi.getIduser().getIdes().getIdes());
+        float thongke= es.getTongtien();
 
         CTKhoanchi ct=new CTKhoanchi();
         ct.setGhichu(ghichu);
@@ -45,9 +50,11 @@ public class KhoanchiService {
 
         khoanchi.setIdctchi(savedCT);
         khoanchi.setIduser(uservice.getUserbyID(1));
-        thongke += khoanchi.getTongchi();
-        khoanchi.setThongke(thongke);
         this.repository.save(khoanchi);
+
+        thongke += khoanchi.getTongchi();
+        es.setTongtien(thongke);
+        esservice.saveES(es);
 
         savedCT.setIdkhoanchi(khoanchi);
         ctrepository.save(savedCT);
@@ -55,7 +62,8 @@ public class KhoanchiService {
 
     public void updateKhoanchi(Khoanchi khoanchi, CTKhoanchi ct){
         float tccu = getKhoanchibyID(khoanchi.getIdkhoanchi()).getTongchi();
-        float thongke = khoanchi.getThongke();
+        ExpenseStatistic es = esservice.getESbyID(khoanchi.getIduser().getIdes().getIdes());
+        float thongke= es.getTongtien();
         if(ct==null){
             throw new RuntimeException("Không tìm thấy id của chi tiết khoản chi: " + khoanchi.getIdctchi().getIdctchi());
         }
@@ -65,7 +73,8 @@ public class KhoanchiService {
         }else{
             thongke -= tccu - khoanchi.getTongchi(); 
         }
-        khoanchi.setThongke(thongke);
+        es.setTongtien(thongke);
+        esservice.saveES(es);
         tinhTongtien(khoanchi, tccu - khoanchi.getTongchi());
 
         ct.setTongchi(khoanchi.getTongchi());
@@ -104,5 +113,7 @@ public class KhoanchiService {
             tt.setNo(0-tt.getTongtien());
         }
         ttrepository.save(tt);
+        khoanchi.setTongtien(tt.getTongtien());
+        repository.save(khoanchi);
     }
 }

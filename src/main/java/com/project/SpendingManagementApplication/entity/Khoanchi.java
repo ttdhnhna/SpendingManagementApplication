@@ -41,7 +41,7 @@ public class Khoanchi {
     @Temporal(TemporalType.DATE)
     private Date ngaychi;
 
-    private float thongke;
+    private float tongtien;
 
     public Khoanchi() {
     }
@@ -86,12 +86,12 @@ public class Khoanchi {
         this.ngaychi = ngaychi;
     }
 
-    public float getThongke() {
-        return thongke;
+    public float getTongtien() {
+        return tongtien;
     }
 
-    public void setThongke(float thongke) {
-        this.thongke = thongke;
+    public void setTongtien(float tongtien) {
+        this.tongtien = tongtien;
     }
 
 }

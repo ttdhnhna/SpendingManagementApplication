@@ -1,8 +1,12 @@
 package com.project.SpendingManagementApplication.service;
 
+import com.project.SpendingManagementApplication.entity.ExpenseStatistic;
+import com.project.SpendingManagementApplication.entity.IncomeStatistic;
 import com.project.SpendingManagementApplication.entity.Tongtien;
 import com.project.SpendingManagementApplication.entity.User;
 import com.project.SpendingManagementApplication.entity.UserDto;
+import com.project.SpendingManagementApplication.repository.ExpenseStatisticRepository;
+import com.project.SpendingManagementApplication.repository.IncomeStatisticRepository;
 import com.project.SpendingManagementApplication.repository.TongtienRepository;
 import com.project.SpendingManagementApplication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,10 @@ public class UserService {
     UserRepository repository;
     @Autowired
     TongtienRepository ttrepository;
+    @Autowired
+    ExpenseStatisticRepository esrepository;
+    @Autowired
+    IncomeStatisticRepository isrepository;
 
     public List<User> getUser(){
         return repository.findAll();
@@ -30,12 +38,22 @@ public class UserService {
     public void saveUser(User user){
         Tongtien tt = new Tongtien();
         Tongtien savedTT = ttrepository.save(tt);
+        ExpenseStatistic es = new ExpenseStatistic();
+        ExpenseStatistic savedES = esrepository.save(es);
+        IncomeStatistic is = new IncomeStatistic();
+        IncomeStatistic savedIS = isrepository.save(is);
 
         user.setIdtongtien(savedTT);
+        user.setIdis(savedIS);
+        user.setIdes(savedES);
         User savedUser =  this.repository.save(user);
 
         savedTT.setIduser(savedUser);
         ttrepository.save(savedTT);
+        savedES.setIduser(savedUser);
+        esrepository.save(savedES);
+        savedIS.setIduser(savedUser);
+        isrepository.save(savedIS);
     }
 
     public void updateUser(User user, UserDto userDto){

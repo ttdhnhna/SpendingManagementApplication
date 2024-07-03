@@ -36,6 +36,14 @@ public class User {
     @JsonBackReference
     private Tongtien idtongtien;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ides", referencedColumnName = "ides")
+    private ExpenseStatistic ides;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "idis", referencedColumnName = "idis")
+    private IncomeStatistic idis;
+
     private String hoten;
     private String email;
     private String password;
@@ -153,6 +161,22 @@ public class User {
 
     public void setDantoc(String dantoc) {
         this.dantoc = dantoc;
+    }
+
+    public ExpenseStatistic getIdes() {
+        return ides;
+    }
+
+    public void setIdes(ExpenseStatistic ides) {
+        this.ides = ides;
+    }
+
+    public IncomeStatistic getIdis() {
+        return idis;
+    }
+
+    public void setIdis(IncomeStatistic idis) {
+        this.idis = idis;
     }
 
     
