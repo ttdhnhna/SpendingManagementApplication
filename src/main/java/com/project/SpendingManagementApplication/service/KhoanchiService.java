@@ -14,6 +14,7 @@ import com.project.SpendingManagementApplication.entity.CTKhoanchi;
 import com.project.SpendingManagementApplication.entity.ExpenseStatistic;
 import com.project.SpendingManagementApplication.entity.Khoanchi;
 import com.project.SpendingManagementApplication.entity.Tongtien;
+import com.project.SpendingManagementApplication.entity.User;
 import com.project.SpendingManagementApplication.repository.CTKhoanchiRepository;
 import com.project.SpendingManagementApplication.repository.KhoanchiRepository;
 import com.project.SpendingManagementApplication.repository.TongtienRepository;
@@ -37,7 +38,8 @@ public class KhoanchiService {
     }
 
     public void saveKhoanchi(Khoanchi khoanchi, String ghichu, String theloai){
-        ExpenseStatistic es = esservice.getESbyID(uservice.getUserbyID(1).getIdes().getIdes());
+        User user = uservice.getUserbyID(1);
+        ExpenseStatistic es = esservice.getESbyID(user.getIdes().getIdes());
         float thongke= es.getTongtien();
 
         CTKhoanchi ct=new CTKhoanchi();
@@ -46,27 +48,27 @@ public class KhoanchiService {
         ct.setTongchi(khoanchi.getTongchi());
 
         CTKhoanchi savedCT = ctrepository.save(ct);
+        float tongtien = tinhTongtien(khoanchi,0);
 
-//        khoanchi.setIdctchi(savedCT);
-//        khoanchi.setIduser(uservice.getUserbyID(1));
-        Khoanchi savedKT = this.repository.save(khoanchi);
-        savedKT.setIdctchi(savedCT);
-        savedKT.setIduser(uservice.getUserbyID(1));
-        tinhTongtien(savedKT,0);
-        this.repository.save(savedKT);
+        khoanchi.setIdctchi(savedCT);
+        khoanchi.setIduser(user);
+        this.repository.save(khoanchi);
 
         thongke += khoanchi.getTongchi();
         es.setTongtien(thongke);
         esservice.saveES(es);
 
+        savedCT.setTongtien(tongtien);
         savedCT.setIdkhoanchi(khoanchi);
         ctrepository.save(savedCT);
     }
 
     public void updateKhoanchi(Khoanchi khoanchi, CTKhoanchi ct){
+        User user = uservice.getUserbyID(1);
         float tccu = getKhoanchibyID(khoanchi.getIdkhoanchi()).getTongchi();
-        ExpenseStatistic es = esservice.getESbyID(uservice.getUserbyID(1).getIdes().getIdes());
+        ExpenseStatistic es = esservice.getESbyID(user.getIdes().getIdes());
         float thongke= es.getTongtien();
+        float tongtien = tinhTongtien(khoanchi,tccu - khoanchi.getTongchi());
         if(ct==null){
             throw new RuntimeException("Không tìm thấy id của chi tiết khoản chi: " + khoanchi.getIdctchi().getIdctchi());
         }
@@ -78,12 +80,13 @@ public class KhoanchiService {
         }
         es.setTongtien(thongke);
         esservice.saveES(es);
-        tinhTongtien(khoanchi, tccu - khoanchi.getTongchi());
 
         ct.setTongchi(khoanchi.getTongchi());
+        ct.setTongtien(tongtien);
         ctrepository.save(ct);
-        khoanchi.setIduser(uservice.getUserbyID(1));
-        this.repository.save(khoanchi);
+
+        // khoanchi.setIduser(user);
+        // this.repository.save(khoanchi);
     }
 
     public Khoanchi getKhoanchibyID(long id){
@@ -108,7 +111,7 @@ public class KhoanchiService {
         return this.repository.findAll(pageable);
     }
 
-    public void tinhTongtien(Khoanchi khoanchi, float du){
+    public float tinhTongtien(Khoanchi khoanchi, float du){
         Tongtien tt = uservice.getUserbyID(1).getIdtongtien();
         tt.setTongtien(tt.getTongtien()-khoanchi.getTongchi()+du);
         if(tt.getTongtien()<0){
@@ -116,7 +119,6 @@ public class KhoanchiService {
             tt.setNo(0-tt.getTongtien());
         }
         ttrepository.save(tt);
-        khoanchi.setTongtien(tt.getTongtien());
-        repository.save(khoanchi);
+        return tt.getTongtien();
     }
 }
