@@ -2,6 +2,9 @@ package com.project.SpendingManagementApplication.controller;
 
 import java.util.List;
 
+import com.project.SpendingManagementApplication.entity.ExpenseStatistic;
+import com.project.SpendingManagementApplication.service.ExpenseStatisticService;
+import com.project.SpendingManagementApplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,10 @@ public class KhoanchiController {
     KhoanchiService service;
     @Autowired
     CTKhoanchiService ctservice;
+    @Autowired
+    ExpenseStatisticService esservice;
+    @Autowired
+    UserService uservice;
 
     @GetMapping("/expenses")
     public String getExpenses(Model model){
@@ -66,6 +73,7 @@ public class KhoanchiController {
     public String findPaginated(@PathVariable(value = "pageKCNo") int pageNo,
         @RequestParam("sortField") String sortField,
         @RequestParam("sortDir") String sortDir, Model model){
+        ExpenseStatistic es = esservice.getESbyID(uservice.getUserbyID(1).getIdes().getIdes());
         int pageSize = 10;
 
         Page<Khoanchi> page = service.findPaginated(pageNo, pageSize, sortField, sortDir);
@@ -80,6 +88,7 @@ public class KhoanchiController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("ListKhoanchi", ListKhoanchi);
+        model.addAttribute("es", es);
         return "expenses";
     }
 }

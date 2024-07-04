@@ -2,6 +2,9 @@ package com.project.SpendingManagementApplication.controller;
 
 import java.util.List;
 
+import com.project.SpendingManagementApplication.entity.IncomeStatistic;
+import com.project.SpendingManagementApplication.service.IncomeStatisticService;
+import com.project.SpendingManagementApplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,10 @@ public class KhoanthuController {
     KhoanthuService service;
     @Autowired
     CTKhoanthuService ctservice;
+    @Autowired
+    IncomeStatisticService isservice;
+    @Autowired
+    UserService uservice;
 
     @GetMapping("/incomes")
     public String getIncomes(Model model){
@@ -66,6 +73,7 @@ public class KhoanthuController {
     public String findPaginated(@PathVariable(value = "pageKTNo") int pageNo, 
         @RequestParam("sortField") String sortField,
         @RequestParam("sortDir") String sortDir, Model model){
+        IncomeStatistic is = isservice.getISbyID(uservice.getUserbyID(1).getIdes().getIdes());
         int pageSize = 10;
 
         Page<Khoanthu> page = service.findPaginated(pageNo, pageSize, sortField, sortDir);
@@ -80,6 +88,7 @@ public class KhoanthuController {
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("ListKhoanthu", ListKhoanthu);
+        model.addAttribute("is", is);
         return "incomes";
     }
 }

@@ -37,7 +37,7 @@ public class KhoanchiService {
     }
 
     public void saveKhoanchi(Khoanchi khoanchi, String ghichu, String theloai){
-        ExpenseStatistic es = esservice.getESbyID(khoanchi.getIduser().getIdes().getIdes());
+        ExpenseStatistic es = esservice.getESbyID(uservice.getUserbyID(1).getIdes().getIdes());
         float thongke= es.getTongtien();
 
         CTKhoanchi ct=new CTKhoanchi();
@@ -46,11 +46,14 @@ public class KhoanchiService {
         ct.setTongchi(khoanchi.getTongchi());
 
         CTKhoanchi savedCT = ctrepository.save(ct);
-        tinhTongtien(khoanchi, 0);
 
-        khoanchi.setIdctchi(savedCT);
-        khoanchi.setIduser(uservice.getUserbyID(1));
-        this.repository.save(khoanchi);
+//        khoanchi.setIdctchi(savedCT);
+//        khoanchi.setIduser(uservice.getUserbyID(1));
+        Khoanchi savedKT = this.repository.save(khoanchi);
+        savedKT.setIdctchi(savedCT);
+        savedKT.setIduser(uservice.getUserbyID(1));
+        tinhTongtien(savedKT,0);
+        this.repository.save(savedKT);
 
         thongke += khoanchi.getTongchi();
         es.setTongtien(thongke);
@@ -62,7 +65,7 @@ public class KhoanchiService {
 
     public void updateKhoanchi(Khoanchi khoanchi, CTKhoanchi ct){
         float tccu = getKhoanchibyID(khoanchi.getIdkhoanchi()).getTongchi();
-        ExpenseStatistic es = esservice.getESbyID(khoanchi.getIduser().getIdes().getIdes());
+        ExpenseStatistic es = esservice.getESbyID(uservice.getUserbyID(1).getIdes().getIdes());
         float thongke= es.getTongtien();
         if(ct==null){
             throw new RuntimeException("Không tìm thấy id của chi tiết khoản chi: " + khoanchi.getIdctchi().getIdctchi());

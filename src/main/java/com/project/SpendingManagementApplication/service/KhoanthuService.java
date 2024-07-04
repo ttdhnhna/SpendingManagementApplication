@@ -36,7 +36,7 @@ public class KhoanthuService {
     }
 
     public void saveKhoanthu(Khoanthu khoanthu, String ghichu, String theloai){
-        IncomeStatistic is = isservice.getISbyID((khoanthu.getIduser().getIdis().getIdis()));
+        IncomeStatistic is = isservice.getISbyID(uservice.getUserbyID(1).getIdis().getIdis());
         float thongke=is.getTongtien();
 
         CTKhoanthu ct = new CTKhoanthu();
@@ -45,11 +45,14 @@ public class KhoanthuService {
         ct.setTongthu(khoanthu.getTongthu());
         
         CTKhoanthu savedCT = ctrepository.save(ct);
-        tinhTongtien(khoanthu,0);
 
-        khoanthu.setIdctthu(savedCT);
-        khoanthu.setIduser(uservice.getUserbyID(1));
-        this.repository.save(khoanthu);
+//        khoanthu.setIdctthu(savedCT);
+//        khoanthu.setIduser(uservice.getUserbyID(1));
+        Khoanthu savedKT = this.repository.save(khoanthu);
+        savedKT.setIduser(uservice.getUserbyID(1));
+        savedKT.setIdctthu(savedCT);
+        tinhTongtien(savedKT,0);
+        this.repository.save(savedKT);
 
         thongke += khoanthu.getTongthu();
         is.setTongtien(thongke);
@@ -61,7 +64,7 @@ public class KhoanthuService {
 
     public void updateKhoanthu(Khoanthu khoanthu, CTKhoanthu ct){      
         float ttcu = getKhoanthubyID(khoanthu.getIdkhoanthu()).getTongthu(); 
-        IncomeStatistic is = isservice.getISbyID((khoanthu.getIduser().getIdis().getIdis()));
+        IncomeStatistic is = isservice.getISbyID(uservice.getUserbyID(1).getIdis().getIdis());
         float thongke=is.getTongtien();
         if(ct==null){
             throw new RuntimeException("Không tìm thấy id của chi tiết khoản thu: " + khoanthu.getIdctthu().getIdctthu());
