@@ -66,7 +66,7 @@ public class KhoanthuController {
     @GetMapping("/deleteIncome/{id}")
     public String deleteIncomeByID(@PathVariable(value = "id") long id){
         this.service.deleteKhoanthubyID(id);
-        return "redirect:/incomes";
+        return "redirect:/";
     }
 
     @GetMapping("/pageKT/{pageKTNo}")

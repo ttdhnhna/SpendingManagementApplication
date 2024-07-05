@@ -43,7 +43,7 @@ public class AppController {
         combindedList.sort((o1, o2) -> {
             Date date1 = (o1 instanceof Khoanchi) ? ((Khoanchi) o1).getNgaychi() : ((Khoanthu) o1).getNgaythu();
             Date date2 = (o2 instanceof Khoanchi) ? ((Khoanchi) o2).getNgaychi() : ((Khoanthu) o2).getNgaythu();
-            return date1.compareTo(date2);
+            return date2.compareTo(date1);
         });
         model.addAttribute("combindedList", combindedList);
         Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());

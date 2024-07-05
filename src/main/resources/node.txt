@@ -96,3 +96,5 @@ rồi sẽ làm phần tổng tiền rồi cuối cùng là trang chủ và ph�
 
 * CHÚ Ý: Khi muốn liên kết 2 lớp với nhau thì nên tạo một liên kết gián tiếp kiểu như là tạo 1
 biến mới với giá trị của biến vừa tạo xong liên kết với biến mà mình muốn liên kết.
+
+Lam phan chi tiet cua khoan chi va thu.
