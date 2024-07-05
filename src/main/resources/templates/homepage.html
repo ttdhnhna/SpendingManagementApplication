@@ -102,7 +102,7 @@
                     </th:block>
                     <th:block th:if="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanthu)}">
                         <td th:text="${item.idkhoanthu}"></td>
-                        <td th:text="${'₫' + #numbers.formatDecimal(item.tongthu, 1, 'COMMA', 2, 'POINT')"></td>
+                        <td th:text="${'₫' + #numbers.formatDecimal(item.tongthu, 1, 'COMMA', 2, 'POINT')}"></td>
                         <td th:text="${item.ngaythu}"></td>
                         <td>Khoản thu</td>
                         <td>
