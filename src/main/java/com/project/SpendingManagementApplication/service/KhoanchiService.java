@@ -85,8 +85,8 @@ public class KhoanchiService {
         ct.setTongtien(tongtien);
         ctrepository.save(ct);
 
-        // khoanchi.setIduser(user);
-        // this.repository.save(khoanchi);
+        khoanchi.setIduser(user);
+        this.repository.save(khoanchi);
     }
 
     public Khoanchi getKhoanchibyID(long id){
@@ -101,6 +101,17 @@ public class KhoanchiService {
     }
 
     public void deleteKhoanchibyID(long id){
+        User user = uservice.getUserbyID(1);
+        Khoanchi khoanchi = getKhoanchibyID(id);
+
+        ExpenseStatistic es = esservice.getESbyID(user.getIdes().getIdes());
+        es.setTongtien(es.getTongtien()-khoanchi.getTongchi());
+        esservice.saveES(es);
+
+        khoanchi.setTongchi(0-khoanchi.getTongchi());
+        tinhTongtien(khoanchi, 0);
+
+        ctrepository.deleteById(khoanchi.getIdctchi().getIdctchi());
         this.repository.deleteById(id);
     }
 

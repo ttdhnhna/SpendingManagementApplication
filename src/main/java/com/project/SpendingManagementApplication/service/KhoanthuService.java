@@ -83,6 +83,9 @@ public class KhoanthuService {
         ct.setTongthu(khoanthu.getTongthu());
         ct.setTongtien(tongtien);
         ctrepository.save(ct);
+
+        khoanthu.setIduser(user);
+        this.repository.save(khoanthu);
     }
 
     public Khoanthu getKhoanthubyID(long id){
@@ -97,6 +100,17 @@ public class KhoanthuService {
     }
 
     public void deleteKhoanthubyID(long id){
+        User user = uservice.getUserbyID(1);
+        Khoanthu khoanthu = getKhoanthubyID(id);
+
+        IncomeStatistic is = isservice.getISbyID(user.getIdis().getIdis());
+        is.setTongtien(is.getTongtien()-khoanthu.getTongthu());
+        isservice.saveIS(is);
+
+        khoanthu.setTongthu(0-khoanthu.getTongthu());
+        tinhTongtien(khoanthu, 0);
+
+        ctrepository.deleteById(khoanthu.getIdctthu().getIdctthu());
         this.repository.deleteById(id);
     }
 

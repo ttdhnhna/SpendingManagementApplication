@@ -33,11 +33,6 @@ public class Khoanthu {
     @Temporal(TemporalType.DATE)
     private Date ngaythu;
 
-    // @PrePersist
-    // public void onUpdate(){
-    //     this.ngaythu = new Date();
-    // }
-
     public Khoanthu() {
     }
 
