@@ -95,6 +95,6 @@ public class KhoanthuController {
     public String expenseDetail(@PathVariable(value = "id") long id, Model model){
         Khoanthu khoanthu = service.getKhoanthubyID(id);
         model.addAttribute("khoanthu", khoanthu);
-        return "incomeedetail";
+        return "incomedetail";
     }
 }

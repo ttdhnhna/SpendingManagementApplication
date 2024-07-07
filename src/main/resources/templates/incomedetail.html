@@ -65,7 +65,7 @@
                         nut gui -->
                         <div class="form-group">
                             <label>Số tiền giao dịch</label>
-                            <output class="form-control mb-1" name="tongthu" th:text="${khoanthu.tongthu}"></output>
+                            <output class="form-control mb-1" name="tongthu" th:text="${'₫' + #numbers.formatDecimal(khoanthu.tongthu, 1, 'COMMA', 2, 'POINT')}"></output>
                         </div>
                         <div class="form-group">
                             <label>Ngày giao dịch</label>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="form-group">
                             <label>Tổng tiền sau thu</label>                            
-                            <output class="form-control mb-1" name="tongtien" th:text="${khoanthu.idctthu.tongtien}"></output>
+                            <output class="form-control mb-1" name="tongtien" th:text="${'₫' + #numbers.formatDecimal(khoanthu.idctthu.tongtien, 1, 'COMMA', 2, 'POINT')}"></output>
                         </div>
                         <div class="form-group">
                             <label>Thể loại</label>
