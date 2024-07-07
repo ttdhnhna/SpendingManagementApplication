@@ -73,17 +73,17 @@
                         </div>
                         <div class="form-group">
                             <label>Tổng tiền sau thu</label>                            
-                            <output class="form-control mb-1" name="tongtien" th:text="${khoanthu.ctkhoanthu.tongtien}"></output>
+                            <output class="form-control mb-1" name="tongtien" th:text="${khoanthu.idctthu.tongtien}"></output>
                         </div>
                         <div class="form-group">
                             <label>Thể loại</label>
-                            <output class="form-control mb-1" name="theloai" th:text="${khoanthu.ctkhoanthu.theloai}"></output>
+                            <output class="form-control mb-1" name="theloai" th:text="${khoanthu.idctthu.theloai}"></output>
                         </div>
                         <div class="form-group">
                             <label>Ghi chú</label>
                             <textarea
                                 name="ghichu"
-                                th:field="${khoanthu.ctkhoanthu.ghichu}"
+                                th:field="${khoanthu.idctthu.ghichu}"
                                 class="form-control"
                                 rows="4"
                             ></textarea>
