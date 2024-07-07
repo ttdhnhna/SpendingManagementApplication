@@ -98,7 +98,7 @@
                 <td th:text="${expense.ngaychi}"></td>
                 <td>
                     <a th:href="@{/updateExpense/{id}(id=${expense.idkhoanchi})}" class="btn btn-primary">Sửa</a>
-                    <a class="btn btn-primary">Chi tiết</a>
+                    <a th:href="@{/expenseDetail/{id}(id=${expense.idkhoanchi})}" class="btn btn-primary">Chi tiết</a>
                     <a th:href="@{/deleteExpense/{id}(id=${expense.idkhoanchi})}" class="btn btn-danger">Xóa</a>
                 </td>
             </tr>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Savior</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+          integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+        <!-- Brand -->
+        <!--    Logo    -->
+        <a class="navbar-brand">Money Savior</a>
+
+        <!-- Toggler/collapsibe Button -->
+        <!-- Đây sẽ là nơi xử lý việc gop menu lai khi thuc hien tren dien thoai -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a th:href="@{/}" class="nav-link">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/expenses}" class="nav-link">Quản lý chi tiêu</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/incomes}" class="nav-link" >Quản lý thu nhập</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" >Forum</a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/userpage}" class="nav-link" >Tài khoản</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item">
+                    <a class="nav-link" th:href="@{/logout} ">Đăng xuất</a>
+                </li>
+            </ul>
+        </div>
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" name = "keyword" placeholder="Tìm kiếm">
+                <button class="btn btn-outline-success" type="submit">Tìm kiếm</button>
+            </form>
+        </nav>
+    </nav>
+    <br>
+    <!-- Body -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+                <br>
+                <h1 class="text-center">Chi tiết khoản thu</h1>
+                <div class="card-body">
+                    <form action="#" th:object="${khoanthu}">
+                        <!-- Phan action tren day chinh la cho se quyet dinh trang web se lam gi sau khi an
+                        nut gui -->
+                        <div class="form-group">
+                            <label>Số tiền giao dịch</label>
+                            <output class="form-control mb-1" name="tongthu" th:text="${khoanthu.tongthu}"></output>
+                        </div>
+                        <div class="form-group">
+                            <label>Ngày giao dịch</label>
+                            <output class="form-control mb-1" name="ngaythu" th:text="${khoanthu.ngaythu}"></output>
+                        </div>
+                        <div class="form-group">
+                            <label>Tổng tiền sau thu</label>                            
+                            <output class="form-control mb-1" name="tongtien" th:text="${khoanthu.ctkhoanthu.tongtien}"></output>
+                        </div>
+                        <div class="form-group">
+                            <label>Thể loại</label>
+                            <output class="form-control mb-1" name="theloai" th:text="${khoanthu.ctkhoanthu.theloai}"></output>
+                        </div>
+                        <div class="form-group">
+                            <label>Ghi chú</label>
+                            <textarea
+                                name="ghichu"
+                                th:field="${khoanthu.ctkhoanthu.ghichu}"
+                                class="form-control"
+                                rows="4"
+                            ></textarea>
+                        </div>
+                    </form>
+                    <hr>
+                    <a th:href="@{/}" class="btn btn-danger">Quay lại</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <!--  Footer  -->
+    <footer class="bg-light text-center text-lg-start">
+        <div class="footer-content text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            <div class="footer-left">
+                <b>Copyright©2024 Dương Thành Đạt.</b> All rights reserved.
+            </div>
+            <div class="footer-right">
+                <b>Version</b> 1.0.0
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

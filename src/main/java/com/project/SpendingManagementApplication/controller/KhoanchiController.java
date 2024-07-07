@@ -91,4 +91,11 @@ public class KhoanchiController {
         model.addAttribute("es", es);
         return "expenses";
     }
+
+    @GetMapping("/expenseDetail/{id}")
+    public String expenseDetail(@PathVariable(value = "id") long id, Model model){
+        Khoanchi khoanchi = service.getKhoanchibyID(id);
+        model.addAttribute("khoanchi", khoanchi);
+        return "expensedetail";
+    }
 }

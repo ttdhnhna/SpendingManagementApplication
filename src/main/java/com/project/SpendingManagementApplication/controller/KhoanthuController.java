@@ -91,4 +91,10 @@ public class KhoanthuController {
         model.addAttribute("is", is);
         return "incomes";
     }
+    @GetMapping("/incomeDetail/{id}")
+    public String expenseDetail(@PathVariable(value = "id") long id, Model model){
+        Khoanthu khoanthu = service.getKhoanthubyID(id);
+        model.addAttribute("khoanthu", khoanthu);
+        return "incomeedetail";
+    }
 }
