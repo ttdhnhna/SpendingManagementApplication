@@ -132,4 +132,8 @@ public class KhoanchiService {
         ttrepository.save(tt);
         return tt.getTongtien();
     }
+
+    public Page<Khoanchi> getPage(Pageable pageable){
+        return this.repository.findAll(pageable);
+    }
 }
