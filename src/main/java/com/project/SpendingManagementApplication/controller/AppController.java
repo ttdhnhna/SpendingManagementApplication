@@ -8,14 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.SpendingManagementApplication.entity.Khoanchi;
 import com.project.SpendingManagementApplication.entity.Khoanthu;
@@ -40,7 +38,7 @@ public class AppController {
 
     @GetMapping("/")
     public String getAll(Model model){
-        return findPaginated(1, "ngaychi", "asc", model);
+        return findPaginated(1,model);
     }
 
     @GetMapping("/userpage")
@@ -68,12 +66,9 @@ public class AppController {
 
     @GetMapping("/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
-        @RequestParam("sortField") String sortField,
-        @RequestParam("sortDir") String sortDir, Model model){
+        Model model){
         int pageSize = 10;
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : 
-            Sort.by(sortField).descending();
-        Pageable pageable = PageRequest.of(pageNo-1, pageSize, sort);
+        Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 
         Page<Khoanchi> pageKC = kcservice.getPage(pageable);
         Page<Khoanthu> pageKT = ktservice.getPage(pageable);
@@ -90,10 +85,6 @@ public class AppController {
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", Math.max(pageKC.getTotalPages(), pageKT.getTotalPages()));
         model.addAttribute("totalItems", Math.max(pageKC.getTotalElements(), pageKT.getTotalElements()));
-
-        model.addAttribute("sortField", sortField);
-        model.addAttribute("sortDir", sortDir);
-        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
         model.addAttribute("combindedList", combindedList);
         Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());

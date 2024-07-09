@@ -97,33 +97,32 @@ biến mới với giá trị của biến vừa tạo xong liên kết với bi
 Làm phần phân chia trang và sắp xếp của trang chủ rồi làm phần tìm kiếm rồi sẽ làm phần đăng nhập và đăng ký.
 
 @GetMapping("/page/{pageNo}")
-public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
-                            @RequestParam("sortField") String sortField,
-                            @RequestParam("sortDir") String sortDir, Model model) {
+public String findPaginated(@PathVariable(value = "pageNo") int pageNo, 
+Model model) {
     int pageSize = 10;
-    Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : 
-                Sort.by(sortField).descending();
-    Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+    Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 
+    // Fetch data from both entities
     Page<Khoanchi> pageKC = kcservice.getPage(pageable);
     Page<Khoanthu> pageKT = ktservice.getPage(pageable);
 
+    // Combine the lists
     List<Object> combinedList = new ArrayList<>();
     combinedList.addAll(pageKC.getContent());
     combinedList.addAll(pageKT.getContent());
-    combinedList.sort((o1, o2) -> {
-        Date date1 = (o1 instanceof Khoanchi) ? ((Khoanchi) o1).getNgaychi() : ((Khoanthu) o1).getNgaythu();
-        Date date2 = (o2 instanceof Khoanchi) ? ((Khoanchi) o2).getNgaychi() : ((Khoanthu) o2).getNgaythu();
-        return date2.compareTo(date1);
-    });
 
+    // Manual pagination
+    int totalItems = combinedList.size();
+    int startItem = (pageNo - 1) * pageSize;
+    int endItem = Math.min(startItem + pageSize, totalItems);
+    List<Object> paginatedList = combinedList.subList(startItem, endItem);
+
+    // Add pagination attributes to the model
     model.addAttribute("currentPage", pageNo);
-    model.addAttribute("totalPages", Math.max(pageKC.getTotalPages(), pageKT.getTotalPages()));
-    model.addAttribute("totalItems", Math.max(pageKC.getTotalElements(), pageKT.getTotalElements()));
-    model.addAttribute("sortField", sortField);
-    model.addAttribute("sortDir", sortDir);
-    model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
-    model.addAttribute("combinedList", combinedList);
+    model.addAttribute("totalPages", (int) Math.ceil((double) totalItems / pageSize));
+    model.addAttribute("totalItems", totalItems);
+
+    model.addAttribute("combinedList", paginatedList);
 
     Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
     model.addAttribute("tt", tt);
@@ -131,27 +130,7 @@ public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
     return "homepage";
 }
 
- <thead class="table-dark">
-        <tr>
-            <th>
-                <a th:href="@{'/page/1?sortField=idkhoanthu&sortDir=' + ${reverseSortDir}}">ID Khoanthu</a>
-            </th>
-            <th>
-                <a th:href="@{'/page/1?sortField=idkhoanchi&sortDir=' + ${reverseSortDir}}">ID Khoanchi</a>
-            </th>
-            <th>
-                <a th:href="@{'/page/1?sortField=tongthu&sortDir=' + ${reverseSortDir}}">Giá trị giao dịch (Khoanthu)</a>
-            </th>
-            <th>
-                <a th:href="@{'/page/1?sortField=tongchi&sortDir=' + ${reverseSortDir}}">Giá trị giao dịch (Khoanchi)</a>
-            </th>
-            <th>
-                <a th:href="@{'/page/1?sortField=ngaythu&sortDir=' + ${reverseSortDir}}">Ngày giao dịch (Khoanthu)</a>
-            </th>
-            <th>
-                <a th:href="@{'/page/1?sortField=ngaychi&sortDir=' + ${reverseSortDir}}">Ngày giao dịch (Khoanchi)</a>
-            </th>
-            <th>Thể loại</th>
-            <th>Chức năng</th>
-        </tr>
-    </thead>
+@GetMapping("/")
+public String getAll(Model model) {
+    return findPaginated(1, model);
+}
