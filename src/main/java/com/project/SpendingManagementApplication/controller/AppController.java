@@ -40,7 +40,7 @@ public class AppController {
 
     @GetMapping("/")
     public String getAll(Model model){
-        return findPaginated(1, "null", "asc", model);
+        return findPaginated(1, "asc", model);
     }
 
     @GetMapping("/userpage")
@@ -68,12 +68,12 @@ public class AppController {
 
     @GetMapping("/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
-        @RequestParam("sortField") String sortField,
+        // @RequestParam("sortField") String sortField,
         @RequestParam("sortDir") String sortDir, Model model){
         int pageSize = 10;
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : 
-            Sort.by(sortField).descending();
-        Pageable pageable = PageRequest.of(pageNo-1, pageSize, sort);
+        // Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() : 
+        //     Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNo-1, pageSize, Sort.by(sortDir).ascending());
 
         Page<Khoanchi> pageKC = kcservice.getPage(pageable);
         Page<Khoanthu> pageKT = ktservice.getPage(pageable);
@@ -91,7 +91,7 @@ public class AppController {
         model.addAttribute("totalPages", Math.max(pageKC.getTotalPages(), pageKT.getTotalPages()));
         model.addAttribute("totalItems", Math.max(pageKC.getTotalElements(), pageKT.getTotalElements()));
 
-        model.addAttribute("sortField", sortField);
+        // model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 

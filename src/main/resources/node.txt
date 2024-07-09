@@ -95,3 +95,32 @@ Post - Comments: 1-n
 biến mới với giá trị của biến vừa tạo xong liên kết với biến mà mình muốn liên kết.
 
 Làm phần phân chia trang và sắp xếp của trang chủ rồi làm phần tìm kiếm rồi sẽ làm phần đăng nhập và đăng ký.
+
+@GetMapping("/")
+public String getAll(Model model, @RequestParam(defaultValue = "0") int page
+, @RequestParam(defaultValue = "10") int size
+, @RequestParam(defaultValue = "date,desc") String[] sort) {
+    Pageable pageable = PageRequest.of(page, size, Sort.by(sort[0]).descending());
+    
+    Page<Khoanchi> pageKhoanchi = kcservice.getKhoanchi(pageable);
+    Page<Khoanthu> pageKhoanthu = ktservice.getKhoanthu(pageable);
+    
+    List<Object> combinedList = new ArrayList<>();
+    combinedList.addAll(pageKhoanchi.getContent());
+    combinedList.addAll(pageKhoanthu.getContent());
+    
+    combinedList.sort((o1, o2) -> {
+        Date date1 = (o1 instanceof Khoanchi) ? ((Khoanchi) o1).getNgaychi() : ((Khoanthu) o1).getNgaythu();
+        Date date2 = (o2 instanceof Khoanchi) ? ((Khoanchi) o2).getNgaychi() : ((Khoanthu) o2).getNgaythu();
+        return date2.compareTo(date1);
+    });
+    
+    model.addAttribute("combinedList", combinedList);
+    model.addAttribute("currentPage", page);
+    model.addAttribute("pageSize", size);
+    model.addAttribute("totalPages", Math.max(pageKhoanchi.getTotalPages(), pageKhoanthu.getTotalPages()));
+    
+    Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
+    model.addAttribute("tt", tt);
+    return "homepage";
+}
