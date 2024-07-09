@@ -96,6 +96,8 @@ biến mới với giá trị của biến vừa tạo xong liên kết với bi
 
 Làm phần phân chia trang và sắp xếp của trang chủ rồi làm phần tìm kiếm rồi sẽ làm phần đăng nhập và đăng ký.
 
+Chua sap xep dc.
+
 @GetMapping("/page/{pageNo}")
 public String findPaginated(@PathVariable(value = "pageNo") int pageNo, 
 Model model) {
