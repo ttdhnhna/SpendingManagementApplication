@@ -80,36 +80,26 @@
         <table class="table thead-light table-bordered">
             <thead class="table-dark">
             <tr>
-                <th:block th:if="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanchi)}">
-                    <th>
-                        <a th:href="@{'/pageKT/' + ${currentPage} + '?sortField=idkhoanthu&sortDir=' + ${reverseSortDir}}">ID</a>
-                    </th>
-                    <th>
-                        <a th:href="@{'/pageKT/' + ${currentPage} + '?sortField=tongthu&sortDir=' + ${reverseSortDir}}">Giá trị giao dịch</a>
-                    </th>
-                    <th>
-                        <a th:href="@{'/pageKT/' + ${currentPage} + '?sortField=ngaythu&sortDir=' + ${reverseSortDir}}">Ngày giao dịch </a>
-                    </th>
-                    <th>Thể loại </th>
-                    <th>
-                        Chức năng
-                    </th>
-                </th:block>
-                <th:block th:if="${item instanceof T(com.project.SpendingManagementApplication.entity.Khoanthu)}">
-                    <th>
-                        <a th:href="@{'/page/' + ${currentPage} + '?sortField=idkhoanchi&sortDir=' + ${reverseSortDir}}">ID</a>
-                    </th>
-                    <th>
-                        <a th:href="@{'/page/' + ${currentPage} + '?sortField=tongchi&sortDir=' + ${reverseSortDir}}">Giá trị giao dịch</a>
-                    </th>
-                    <th>
-                        <a th:href="@{'/page/' + ${currentPage} + '?sortField=ngaychi&sortDir=' + ${reverseSortDir}}">Ngày giao dịch </a>
-                    </th>
-                    <th>Thể loại </th>
-                    <th>
-                        Chức năng
-                    </th>
-                </th:block>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=idkhoanthu&sortDir=' + ${reverseSortDir}}">ID</a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=idkhoanchi&sortDir=' + ${reverseSortDir}}">ID</a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=tongthu&sortDir=' + ${reverseSortDir}}">Giá trị giao dịch</a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=tongchi&sortDir=' + ${reverseSortDir}}">Giá trị giao dịch</a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=ngaythu&sortDir=' + ${reverseSortDir}}">Ngày giao dịch </a>
+                </th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=ngaychi&sortDir=' + ${reverseSortDir}}">Ngày giao dịch </a>
+                </th>
+                <th>Thể loại </th>
+                <th>Chức năng</th>
             </tr>
             </thead>
             <tbody>
