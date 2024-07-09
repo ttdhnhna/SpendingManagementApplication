@@ -40,7 +40,7 @@ public class AppController {
 
     @GetMapping("/")
     public String getAll(Model model){
-        return findPaginated(1, "ngaychi", "asc", model);
+        return findPaginated(1, "null", "asc", model);
     }
 
     @GetMapping("/userpage")
