@@ -68,7 +68,7 @@ public class AppController {
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
         Model model){
         int pageSize = 10;
-        Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+        Pageable pageable = PageRequest.of(pageNo, pageSize);//thay doi o day
 
         Page<Khoanchi> pageKC = kcservice.getPage(pageable);
         Page<Khoanthu> pageKT = ktservice.getPage(pageable);
@@ -87,8 +87,8 @@ public class AppController {
         int totalPages = (int) Math.ceil((double) total / pageSize);
         int start = Math.min((pageNo - 1) * pageSize, total);
         int end = Math.min(start + pageSize, total);
-        List<Object> paginatedList = combindedList.subList(start, end);
 
+        List<Object> paginatedList = combindedList.subList(start, end);
 
         model.addAttribute("currentPage", pageNo);
         model.addAttribute("totalPages", totalPages);
