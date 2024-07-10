@@ -81,15 +81,17 @@ public class AppController {
             Date date2 = (o2 instanceof Khoanchi) ? ((Khoanchi) o2).getNgaychi() : ((Khoanthu) o2).getNgaythu();
             return date2.compareTo(date1);
         });
-        
+
         int totalItems = (int) (pageKC.getTotalElements() + pageKT.getTotalElements());
         int total = combindedList.size();
-        int start = Math.min((pageNo - 1) * pageSize, totalItems);
-        int end = Math.min(start + pageSize, totalItems);
-        List<Object> paginatedList=combindedList.subList(start, end);
+        int totalPages = (int) Math.ceil((double) total / pageSize);
+        int start = Math.min((pageNo - 1) * pageSize, total);
+        int end = Math.min(start + pageSize, total);
+        List<Object> paginatedList = combindedList.subList(start, end);
+
 
         model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", (int) Math.ceil((double) total/pageSize));
+        model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalItems", totalItems);
 
         model.addAttribute("combindedList", paginatedList);
