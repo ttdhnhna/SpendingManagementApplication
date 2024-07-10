@@ -117,39 +117,39 @@
 
         <div th:if="${totalPages>1}">
             <div class="row coL-sm-10">
-                <div class="coL-sm-2" style="font-size: 1.3em;">
+                <div class="coL-sm-2">
                     &nbsp;
                     Tổng hàng: [[${totalItems}]]
                     &nbsp; &nbsp;
                 </div>
                 <div class="coL-sm-1">
-                    <a th:if="${currentPage > 1}" th:href="@{'/page/' + 1}" style="font-size: 1.5em;">&laquo;</a>
-                    <span th:unless="${currentPage > 1}" style="font-size: 1.5em;">&laquo;</span>
+                    <a th:if="${currentPage > 1}" th:href="@{'/page/' + 1}">&laquo;</a>
+                    <span th:unless="${currentPage > 1}">&laquo;</span>
                     &nbsp;
                 </div>
 
                 <div class="coL-sm-1">
-                    <a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1}}" style="font-size: 1.5em;">&lsaquo;</a>
-                    <span th:unless="${currentPage > 1}" style="font-size: 1.5em;">&lsaquo;</span>
+                    <a th:if="${currentPage > 1}" th:href="@{'/page/' + ${currentPage - 1}}">&lsaquo;</a>
+                    <span th:unless="${currentPage > 1}">&lsaquo;</span>
                     &nbsp;
                 </div>
 
                 <div class="coL-sm-1">
                   <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                    <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}" style="font-size: 1.3em;">[[${i}]]</a>
-                    <span th:unless="${currentPage != i}" style="font-size: 1.3em;">[[${i}]]</span> &nbsp; &nbsp;
+                    <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+                    <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
                   </span>
                 </div>
 
                 <div class="coL-sm-1">
-                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}" style="font-size: 1.5em;">&rsaquo;</a>
-                    <span th:unless="${currentPage < totalPages}" style="font-size: 1.5em;">&rsaquo;</span>
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}}">&rsaquo;</a>
+                    <span th:unless="${currentPage < totalPages}">&rsaquo;</span>
                     &nbsp;
                 </div>
 
                 <div class="coL-sm-1">
-                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}}" style="font-size: 1.5em;">&raquo;</a>
-                    <span th:unless="${currentPage < totalPages}" style="font-size: 1.5em;">&raquo;</span>
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}}">&raquo;</a>
+                    <span th:unless="${currentPage < totalPages}">&raquo;</span>
                 </div>
             </div>
         </div>
