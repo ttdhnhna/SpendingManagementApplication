@@ -81,12 +81,17 @@ public class AppController {
             Date date2 = (o2 instanceof Khoanchi) ? ((Khoanchi) o2).getNgaychi() : ((Khoanthu) o2).getNgaythu();
             return date2.compareTo(date1);
         });
+        
+        int totalItems = combindedList.size();
+        int start = (pageNo-1)*pageSize;
+        int end = Math.min(start+pageSize, totalItems);
+        List<Object> paginatedList=combindedList.subList(start, end);
 
         model.addAttribute("currentPage", pageNo);
-        model.addAttribute("totalPages", Math.max(pageKC.getTotalPages(), pageKT.getTotalPages()));
-        model.addAttribute("totalItems", Math.max(pageKC.getTotalElements(), pageKT.getTotalElements()));
+        model.addAttribute("totalPages", (int) Math.ceil((double) totalItems/pageSize));
+        model.addAttribute("totalItems", totalItems);
 
-        model.addAttribute("combindedList", combindedList);
+        model.addAttribute("combindedList", paginatedList);
         Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
         model.addAttribute("tt", tt);
         return "homepage";
