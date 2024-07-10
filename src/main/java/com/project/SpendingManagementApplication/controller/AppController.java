@@ -82,14 +82,14 @@ public class AppController {
             return date2.compareTo(date1);
         });
         
-        int totalItems = combindedList.size();
+        int totalItems = (int) (pageKC.getTotalElements() + pageKT.getTotalElements());
         int start = (pageNo-1)*pageSize;
         int end = Math.min(start+pageSize, totalItems);
         List<Object> paginatedList=combindedList.subList(start, end);
 
         model.addAttribute("currentPage", pageNo);
-        // model.addAttribute("totalPages", (int) Math.ceil((double) totalItems/pageSize));
-        model.addAttribute("totalPages", Math.max(pageKC.getTotalPages(), pageKT.getTotalPages()));
+        model.addAttribute("totalPages", (int) Math.ceil((double) totalItems/pageSize));
+        // model.addAttribute("totalPages", Math.max(pageKC.getTotalPages(), pageKT.getTotalPages()));
         model.addAttribute("totalItems", totalItems);
 
         model.addAttribute("combindedList", paginatedList);
