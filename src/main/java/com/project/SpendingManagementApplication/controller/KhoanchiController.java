@@ -7,6 +7,7 @@ import com.project.SpendingManagementApplication.service.ExpenseStatisticService
 import com.project.SpendingManagementApplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -97,5 +98,15 @@ public class KhoanchiController {
         Khoanchi khoanchi = service.getKhoanchibyID(id);
         model.addAttribute("khoanchi", khoanchi);
         return "expensedetail";
+    }
+
+    @GetMapping("/findkc")
+    public String findAllKC(Model model, @Param("keyword")String keyword){
+        List<Khoanchi> ListKhoanchi = service.findAll(keyword);
+        model.addAttribute("ListKhoanchi", ListKhoanchi);
+        if(ListKhoanchi.isEmpty()){
+            model.addAttribute("errorMess", "Không tìm thấy khoản chi");
+        }
+        return "expense";
     }
 }

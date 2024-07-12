@@ -7,6 +7,7 @@ import com.project.SpendingManagementApplication.service.IncomeStatisticService;
 import com.project.SpendingManagementApplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -96,5 +97,15 @@ public class KhoanthuController {
         Khoanthu khoanthu = service.getKhoanthubyID(id);
         model.addAttribute("khoanthu", khoanthu);
         return "incomedetail";
+    }
+
+    @GetMapping("/findkt")
+    public String findAllKC(Model model, @Param("keyword")String keyword){
+        List<Khoanthu> ListKhoanthu = service.findAll(keyword);
+        model.addAttribute("ListKhoanthu", ListKhoanthu);
+        if(ListKhoanthu.isEmpty()){
+            model.addAttribute("errorMess", "Không tìm thấy khoản thu");
+        }
+        return "income";
     }
 }

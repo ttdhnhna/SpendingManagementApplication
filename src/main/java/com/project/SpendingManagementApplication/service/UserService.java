@@ -2,11 +2,15 @@ package com.project.SpendingManagementApplication.service;
 
 import com.project.SpendingManagementApplication.entity.ExpenseStatistic;
 import com.project.SpendingManagementApplication.entity.IncomeStatistic;
+import com.project.SpendingManagementApplication.entity.Khoanchi;
+import com.project.SpendingManagementApplication.entity.Khoanthu;
 import com.project.SpendingManagementApplication.entity.Tongtien;
 import com.project.SpendingManagementApplication.entity.User;
 import com.project.SpendingManagementApplication.entity.UserDto;
 import com.project.SpendingManagementApplication.repository.ExpenseStatisticRepository;
 import com.project.SpendingManagementApplication.repository.IncomeStatisticRepository;
+import com.project.SpendingManagementApplication.repository.KhoanchiRepository;
+import com.project.SpendingManagementApplication.repository.KhoanthuRepository;
 import com.project.SpendingManagementApplication.repository.TongtienRepository;
 import com.project.SpendingManagementApplication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +19,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +32,10 @@ public class UserService {
     @Autowired
     TongtienRepository ttrepository;
     @Autowired
+    KhoanchiRepository kcrepository;
+    @Autowired
+    KhoanthuRepository ktrepository;
+    @Autowired
     ExpenseStatisticRepository esrepository;
     @Autowired
     IncomeStatisticRepository isrepository;
@@ -34,7 +44,6 @@ public class UserService {
         return repository.findAll();
     }
 
-    // Loi o day
     public void saveUser(User user){
         Tongtien tt = new Tongtien();
         Tongtien savedTT = ttrepository.save(tt);
@@ -93,5 +102,17 @@ public class UserService {
 
     public void deleteUserbyID(long id){
         this.repository.deleteById(id);
+    }
+
+    public List<Object> findAll(String keyword){
+        List<Khoanchi> findKC = kcrepository.findAllKC(keyword);
+        List<Khoanthu> findKT = ktrepository.findAllKT(keyword);
+        List<Object> findAll = new ArrayList<>();
+        findAll.addAll(findKC);
+        findAll.addAll(findKT);
+        if(keyword!=null){
+            return findAll;
+        }
+        return Collections.emptyList();
     }
 }

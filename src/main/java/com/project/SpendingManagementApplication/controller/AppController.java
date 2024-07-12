@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -97,6 +98,16 @@ public class AppController {
         model.addAttribute("combindedList", paginatedList);
         Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
         model.addAttribute("tt", tt);
+        return "homepage";
+    }
+
+    @GetMapping("/findall")
+    public String findAllKTKC(Model model, @Param("keyword")String keyword){
+        List<Object> combindedList = uservice.findAll(keyword);
+        model.addAttribute("combindedList", combindedList);
+        if(combindedList.isEmpty()){
+            model.addAttribute("errorMess", "Không tìm thấy khoản chi");
+        }
         return "homepage";
     }
 }

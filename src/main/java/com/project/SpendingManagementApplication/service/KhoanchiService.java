@@ -1,5 +1,6 @@
 package com.project.SpendingManagementApplication.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -135,5 +136,12 @@ public class KhoanchiService {
 
     public Page<Khoanchi> getPage(Pageable pageable){
         return this.repository.findAll(pageable);
+    }
+
+    public List<Khoanchi> findAll(String keyword){
+        if(keyword!=null){
+            return repository.findAllKC(keyword);
+        }
+        return Collections.emptyList();
     }
 }
