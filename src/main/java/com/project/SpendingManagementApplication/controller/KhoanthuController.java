@@ -106,6 +106,6 @@ public class KhoanthuController {
         if(ListKhoanthu.isEmpty()){
             model.addAttribute("errorMess", "Không tìm thấy khoản thu");
         }
-        return "income";
+        return "incomes";
     }
 }

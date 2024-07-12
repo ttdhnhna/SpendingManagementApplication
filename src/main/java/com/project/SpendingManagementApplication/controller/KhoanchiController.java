@@ -107,6 +107,6 @@ public class KhoanchiController {
         if(ListKhoanchi.isEmpty()){
             model.addAttribute("errorMess", "Không tìm thấy khoản chi");
         }
-        return "expense";
+        return "expenses";
     }
 }
