@@ -69,7 +69,7 @@ public class AppController {
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
         Model model){
         int pageSize = 10;
-        Pageable pageable = PageRequest.of(pageNo, pageSize);//thay doi o day
+        Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 
         Page<Khoanchi> pageKC = kcservice.getPage(pageable);
         Page<Khoanthu> pageKT = ktservice.getPage(pageable);
