@@ -104,6 +104,8 @@ public class KhoanchiController {
     public String findAllKC(Model model, @Param("keyword")String keyword){
         List<Khoanchi> ListKhoanchi = service.findAll(keyword);
         model.addAttribute("ListKhoanchi", ListKhoanchi);
+        ExpenseStatistic es = esservice.getESbyID(uservice.getUserbyID(1).getIdes().getIdes());
+        model.addAttribute("es", es);
         if(ListKhoanchi.isEmpty()){
             model.addAttribute("errorMess", "Không tìm thấy khoản chi");
         }

@@ -105,6 +105,8 @@ public class AppController {
     public String findAllKTKC(Model model, @Param("keyword")String keyword){
         List<Object> combindedList = uservice.findAll(keyword);
         model.addAttribute("combindedList", combindedList);
+        Tongtien tt = ttservice.getTongtienbyID(uservice.getUserbyID(1).getIdtongtien().getIdtongtien());
+        model.addAttribute("tt", tt);
         if(combindedList.isEmpty()){
             model.addAttribute("errorMess", "Không tìm thấy khoản chi");
         }

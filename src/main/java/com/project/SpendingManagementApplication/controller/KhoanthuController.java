@@ -103,6 +103,8 @@ public class KhoanthuController {
     public String findAllKC(Model model, @Param("keyword")String keyword){
         List<Khoanthu> ListKhoanthu = service.findAll(keyword);
         model.addAttribute("ListKhoanthu", ListKhoanthu);
+        IncomeStatistic is = isservice.getISbyID(uservice.getUserbyID(1).getIdes().getIdes());
+        model.addAttribute("is", is);
         if(ListKhoanthu.isEmpty()){
             model.addAttribute("errorMess", "Không tìm thấy khoản thu");
         }
