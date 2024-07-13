@@ -37,7 +37,7 @@
                 &nbsp;
                 <h1 align="center"> Đăng ký </h1>
                 <!-- Cần bổ sung thêm thuộc tính id nhân viên và thay đổi action -->
-                <form method="post">
+                <form th:action="@{/saveRegistration}" method="post" th:object="${user}">
                     <div class="form-group">
                         <label class="control-label" for="name">
                             Nhập họ và tên:

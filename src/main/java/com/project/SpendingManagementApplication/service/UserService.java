@@ -14,6 +14,7 @@ import com.project.SpendingManagementApplication.repository.KhoanthuRepository;
 import com.project.SpendingManagementApplication.repository.TongtienRepository;
 import com.project.SpendingManagementApplication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -114,5 +115,12 @@ public class UserService {
             return findAll;
         }
         return Collections.emptyList();
+    }
+
+    public void saveRegistration(User user){
+        BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+        String ePass=encoder.encode(user.getPassword());
+        user.setPassword(ePass);
+        this.repository.save(user);
     }
 }

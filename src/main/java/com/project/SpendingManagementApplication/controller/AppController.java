@@ -112,4 +112,22 @@ public class AppController {
         }
         return "homepage";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @GetMapping("/registration")
+    public String registerPage(Model model){
+        model.addAttribute("user",new User());
+        return "registration";
+    }
+
+    @PostMapping("/saveRegistration")
+    public String saveRegistration(@ModelAttribute("user") User user, Model model){
+        uservice.saveRegistration(user);
+        model.addAttribute("successRegismess", "Bạn đã đăng ký tài khoản thành công!");
+        return "login";
+    }
 }
